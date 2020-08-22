@@ -2,8 +2,11 @@
 An open community platform
 
 # Diagrams
-# class diagram 
+made with  : [Drawio](draw.io)
+## class diagram 
 !["Community lovers class diagram"](planing/images/classdiagram.png)
-made with  : (Drawio)(draw.io)
+
+## sequence diagram
+!["Community lovers sequence diagram"](planing/images/squencediagram.png)
 # License
 ["MIT License Copyright (c) 2020 Freeware Lovers"](LICENSE)
