@@ -48,5 +48,5 @@ class CustomUser(AbstractUser):
 
 class Tag(models.Model):
     name = models.CharField(_("tag name"),max_length=500 )
-    reated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
