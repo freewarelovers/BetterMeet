@@ -34,7 +34,6 @@ class CustomUser(AbstractUser):
     adress = models.CharField(_("adress"), max_length=500, default="", null=True, blank=True)
     city = models.CharField(verbose_name=_("Wilaya in algeria"), max_length=500, blank=True, null=True)
     country = models.CharField(_('country if not algeria'), max_length=50,null=True, blank=True)
-    
     profile_pic = models.ImageField(_('profile pic'), upload_to='users/profile_pics',validators=[validate_image_size, FileExtensionValidator(['jpg','jpeg','png', 'webp', 'svg'])] ,null=True, blank=True)
     
     USERNAME_FIELD = 'email'
