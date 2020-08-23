@@ -46,3 +46,7 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
+class Tag(models.Model):
+    name = models.CharField(_("tag name"),max_length=500 )
+    reated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
