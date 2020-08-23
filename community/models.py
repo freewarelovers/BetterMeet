@@ -2,7 +2,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
-from base.models import Tag
+
+from base.models import Tag,CustomUser
 # Create your models here.
 
 
@@ -13,4 +14,7 @@ class Community(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class CommunityOwner(models.Model):
-     pass
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    community = models.ForeignKey(Community, on_delete=models.CASCADE )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
