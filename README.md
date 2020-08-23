@@ -1,6 +1,8 @@
 # Community Lovers
 An open community platform
 
+# Frameworks & Technologies 
+python , django , graphql , react , redux
 # Diagrams
 made with  : [Drawio](draw.io)
 ## Class diagram 
