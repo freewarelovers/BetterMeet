@@ -7,8 +7,7 @@ from django.core.validators import FileExtensionValidator
 #package
 from phonenumber_field.modelfields import PhoneNumberField
 
-#python
-import uuid 
+
 
 #me
 from .validators import validate_image_size
@@ -23,8 +22,8 @@ Gender = (
 )
 ##  ############## Models #####################
 
-#Custome user model
-class CustomUser(AbstractUser):
+#Custome user model , but in the interface will be displayed as Member
+class CustomUser(AbstractUser): 
     username = None
     first_name = models.CharField(_("first name"), max_length=150, null=False, blank=False)
     last_name = models.CharField(_("last name"), max_length=150, null=False, blank=False)
@@ -43,10 +42,19 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
+    class Meta:
+        verbose_name = "Member"
+        verbose_name_plural = "Members"
     def __str__(self):
-        return self.email
+        return str(self.email)
 
 class Tag(models.Model):
     name = models.CharField(_("tag name"),max_length=500 )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
+    def __str__(self):
+        return str(self.name)
