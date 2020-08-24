@@ -4,7 +4,7 @@ An open community platform
 # Frameworks & Technologies 
 python , django , graphql , react , redux
 # Diagrams
-made with  : [Drawio](draw.io)
+made with  : [Draw.io](https://draw.io/)
 ## Class diagram 
 !["Community lovers class diagram"](planing/images/classdiagram.png)
 ## Sequence diagram
