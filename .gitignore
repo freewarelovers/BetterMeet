@@ -5,6 +5,7 @@
 __pycache__
 db.sqlite3
 media
+communityenv
 # key.py #
 # Backup files # 
 *.bak 
