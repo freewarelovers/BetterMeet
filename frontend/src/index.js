@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Home from "./pages/home/index"
-import Signup from "./pages/registration/signup/index"
-import Signin from "./pages/registration/signin/index"
-import * as serviceWorker from './serviceWorker';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
+
+
+import * as serviceWorker from './serviceWorker';
+import { ApolloProvider } from '@apollo/react-hooks'
+import {apolloClient} from "./apolloClient"
+
+import Home from "./pages/home/index"
+import Signup from "./pages/registration/signup/index"
+import Signin from "./pages/registration/signin/index"
+
+import './index.css';
+
+
 ReactDOM.render(
   <React.StrictMode>
+  <ApolloProvider client={apolloClient}>
     <Router>
     <Switch>
       <Route exact path="/">
@@ -25,7 +34,7 @@ ReactDOM.render(
       </Route>
       </Switch>     
     </Router>
-    
+    </ApolloProvider>    
   </React.StrictMode>,
   document.getElementById('root')
 );
