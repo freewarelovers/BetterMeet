@@ -3,7 +3,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django import DjangoListField
 from .models import *
 from .forms import MemberCreationForm
-
+from  graphene import Field
 ##################################
 ################################## OBJECTS TYPES
 class MembersType(DjangoObjectType):
@@ -21,6 +21,6 @@ class TagType(DjangoObjectType):
 ########################################
 ######################################## Forms Mutations
 class MembersMutation(DjangoModelFormMutation):
-    member = DjangoListField(MembersType)
+    member = Field(MembersType)
     class Meta:
         form_class = MemberCreationForm
