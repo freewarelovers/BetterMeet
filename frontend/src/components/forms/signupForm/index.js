@@ -1,8 +1,8 @@
 import React from "react"
 import {useMutation } from 'react-apollo';
 import {CREATE_USER} from "../../../api/signup/index"
-
-import { Formik, Form, Field } from 'formik';
+import {SignupSchema} from "./schema/index"
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 
 
@@ -12,25 +12,44 @@ function SignupForm (){
         
         return(
             <>
+
                 <Formik
-                 initialValues={{
+                initialValues={{
                         firstName: "",
                         lastName: "",
                         email : "",
                         password1 : "",
                         password2 : "",
-                    }}
-                    onSubmit ={ async values => { await new Promise( r => setTimeout(r, 500));
-                            console.log(createUser())
-                            alert(JSON.stringify(values, null , 2))  }}
+                }}
+                validationSchema={SignupSchema}
+                onSubmit ={ async values => { await new Promise( 
+                            createUser(
+                                { variables: {
+                                    first_name: values.firstName,
+                                    last_name: values.lastName,
+                                    email : values.email,
+                                    password1 : values.password1,
+                                    password2 : values.password2,
+                                }}
+                            ))
+                          }}
                     >
-
+                    {({ errors, touched }) => (
                     <Form>
+
+
                     <label htmlFor="firstName">First Name</label>
                     <Field id="firstName" name="firstName" placeholder="Jane" />
+                    {errors.firstName && touched.firstName ?
+                    (<div>{errors.firstName}</div>) : null}
+
+                
+
 
                     <label htmlFor="lastName">Last Name</label>
                     <Field id="lastName" name="lastName" placeholder="Doe" />
+                    {errors.lastName && touched.lastName ?
+                    (<div>{errors.lastName}</div>) : null}
 
                     <label htmlFor="email">Email</label>
                     <Field
@@ -39,24 +58,30 @@ function SignupForm (){
                     placeholder="jane@acme.com"
                     type="email"
                     />
+                    {errors.email && touched.email ?
+                    (<div>{errors.email}</div>) : null}
 
                     <label htmlFor="password1">Password</label>
                     <Field
                     id="password1"
                     name="password1"
-                    placeholder="jane@acme.com"
+                    placeholder="password"
                     type="password"
                     />
+                    {errors.password1 && touched.password1 ?
+                    (<div>{errors.password1}</div>) : null}
 
                     <label htmlFor="password2">Password Confirmation</label>
                     <Field
                     id="password2"
                     name="password2"
-                    placeholder="jane@acme.com"
+                    placeholder="password confirmation"
                     type="password"
                     />
+                    {errors.password2 && touched.password2 ?
+                    (<div>{errors.password2}</div>) : null}
                     <button type="submit">Submit</button>
-                    </Form>
+                    </Form>)}
                    
                 </Formik>
             </>

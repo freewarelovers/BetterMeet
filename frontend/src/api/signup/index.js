@@ -1,13 +1,13 @@
 import { gql } from 'apollo-boost';
 
 /// create user mutation
-export const CREATE_USER = gql `
-                mutation  {                
-                    addMember(input: {firstName: "abderrahmane", lastName:"toumi", email:"aazxass@mail.com", password1: "Abdou030898mA", password2:"Abdou030898mA"}){
-                        customUser{id}
-                    member{id,firstName,lastName}
-                    errors{field,messages}
-                }
-                }`
+export const CREATE_USER = gql `mutation addMember($first_name:String!, $last_name:String!, $email:String!, 
+                            $password1:String!, $password2:String!){                
+                        addMember(input: {firstName: $first_name, lastName:$last_name, email:$email,
+                            password1: $password1, password2:$password2}){
+                            customUser{id}
+                            errors{field,messages}
+                        }}`
 
+                
 //export const  LIST_USERS = gql``
