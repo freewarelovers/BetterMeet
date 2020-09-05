@@ -2,14 +2,18 @@ import React from "react"
 import {useMutation } from 'react-apollo';
 import {CREATE_USER} from "../../../api/signup/index"
 import {SignupSchema} from "./schema/index"
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field} from 'formik'
 
-
+import { onError } from 'apollo-link-error';
 
 function SignupForm (){
  
-    const [createUser, { data }  ] = useMutation(CREATE_USER)
-        
+    const [createUser, { data,error,loading }  ] = useMutation(CREATE_USER)
+        if (error) return (
+        <>{console.log("this is an error",error)}<p>zadaz</p></>)
+        if (data) return (<p>{data}</p>)
+        if (loading) return (<p>{loading}</p>)
+
         return(
             <>
 
@@ -23,7 +27,7 @@ function SignupForm (){
                 }}
                 validationSchema={SignupSchema}
                 onSubmit ={ async values => { await new Promise( 
-                            createUser(
+                    createUser(
                                 { variables: {
                                     first_name: values.firstName,
                                     last_name: values.lastName,
@@ -37,14 +41,10 @@ function SignupForm (){
                     {({ errors, touched }) => (
                     <Form>
 
-
                     <label htmlFor="firstName">First Name</label>
                     <Field id="firstName" name="firstName" placeholder="Jane" />
                     {errors.firstName && touched.firstName ?
                     (<div>{errors.firstName}</div>) : null}
-
-                
-
 
                     <label htmlFor="lastName">Last Name</label>
                     <Field id="lastName" name="lastName" placeholder="Doe" />
@@ -81,6 +81,7 @@ function SignupForm (){
                     {errors.password2 && touched.password2 ?
                     (<div>{errors.password2}</div>) : null}
                     <button type="submit">Submit</button>
+                    
                     </Form>)}
                    
                 </Formik>
