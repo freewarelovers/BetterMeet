@@ -4,15 +4,17 @@ import {CREATE_USER} from "../../../api/signup/index"
 import {SignupSchema} from "./schema/index"
 import { Formik, Form, Field} from 'formik'
 
-import { onError } from 'apollo-link-error';
+// lets use this link later when we want handle errors
+//import { onError } from 'apollo-link-error';
 
 function SignupForm (){
  
     const [createUser, { data,error,loading }  ] = useMutation(CREATE_USER)
         if (error) return (
-        <>{console.log("this is an error",error)}<p>zadaz</p></>)
-        if (data) return (<p>{data}</p>)
-        if (loading) return (<p>{loading}</p>)
+        <>{console.log("this is an error",error)}</>)
+        if (loading) return (<p>{console.log("this is a loading",loading)}</p>)
+        if (data) return (<p>{console.log("this is data",data)}</p>)
+        
 
         return(
             <>
