@@ -2,19 +2,12 @@ import graphene
 
 from event.models import *
 
-from base.schema import MembersType,CustomUser,MembersMutation
-from community.schema import Community, CommunityOwner, CommunityOwnerType,CommunityType
-from event.schema import Event,EventType
+from base.schema import Query as UserQuery,Mutation as UserMutation
+from community.schema import Query as CommunityQuery
+from event.schema import Query as EventQuery
 
-class Query(graphene.ObjectType):
-    all_members = graphene.List(MembersType)
-    all_communitys = graphene.List(CommunityType)
-    all_communitysOwners = graphene.List(CommunityOwnerType)
-    all_events = graphene.List(EventType)
-
-    def resolve_all_members(root, info):
-        return CustomUser.objects.all()
-
-class Mutation(graphene.ObjectType):
-    add_member = MembersMutation.Field()
+class Query(UserQuery,CommunityQuery, EventQuery,graphene.ObjectType):
+   pass
+class Mutation(UserMutation,graphene.ObjectType):
+    pass
 schema = graphene.Schema(query=Query, mutation=Mutation)
