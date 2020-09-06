@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'graphene_django',
     'base',
     'event',
-    'community'
-    
+    'community',
+    # refresh tokens are optional
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    "graphql_auth",
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -83,8 +86,30 @@ TEMPLATES = [
     },
 ]
 
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    #'graphql_jwt.backends.JSONWebTokenBackend',
+    "graphql_auth.backends.GraphQLAuthBackend",
+    'django.contrib.auth.backends.ModelBackend',
+]
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 GRAPHENE = {
-    "SCHEMA": "CommunityLovers.schema.schema"
+    "SCHEMA": "CommunityLovers.schema.schema",
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ]
+}
+
+GRAPHQL_JWT = {
+    "JWT_VERIFY_EXPIRATION": True,
+    # optional
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.VerifyAccount",
+        "graphql_auth.mutations.ObtainJSONWebToken",
+    ],
 }
 
 WSGI_APPLICATION = 'CommunityLovers.wsgi.application'
