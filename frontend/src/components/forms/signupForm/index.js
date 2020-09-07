@@ -57,7 +57,7 @@ function SignupForm (){
                     <Field
                     id="email"
                     name="email"
-                    placeholder="jane@acme.com"
+                    placeholder="example@example.com"
                     type="email"
                     />
                     {errors.email && touched.email ?
