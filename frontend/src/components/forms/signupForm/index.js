@@ -13,12 +13,20 @@ function SignupForm (){
         if (error) return (
         <>{console.log("this is an error",error)}</>)
         if (loading) return (<p>{console.log("this is a loading",loading)}</p>)
-        if (data) return (<p>{console.log("this is data",data)}</p>)
+       
         
 
         return(
-            <>
-
+            <> 
+                <ul>
+                { data ? data.addMember.errors.map(element=>(
+                    element.messages.map(element=>(
+                        <li>{element}</li>
+                    ))
+                ))  
+                    : undefined }
+                    {data ? <li>{String(data.addMember.success)}</li> : undefined}
+                </ul>
                 <Formik
                 initialValues={{
                         firstName: "",

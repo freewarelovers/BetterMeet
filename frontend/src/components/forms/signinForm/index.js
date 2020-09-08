@@ -9,15 +9,21 @@ import { Formik, Form, Field} from 'formik'
 
 function SigninForm (){
  
-    const [createUser, { data,error,loading }  ] = useMutation(LOGIN_USER)
+    const [loginUser, { data,error,loading }  ] = useMutation(LOGIN_USER)
         if (error) return (
         <>{console.log("this is an error",error)}</>)
         if (loading) return (<p>{console.log("this is a loading",loading)}</p>)
-        if (data) return (<p>{console.log("this is data",data)}</p>)
         
 
         return(
             <>
+                <ul>
+                { data ? (data.tokenAuth.errors.nonFieldErrors.map(element=>(
+                        <li>{element.message}</li>
+                ))  )               
+                    : undefined }
+                {data ? <li>{String(data.tokenAuth.success)}</li> : undefined}
+                </ul>
 
                 <Formik
                 initialValues={{
@@ -26,7 +32,7 @@ function SigninForm (){
                 }}
                 validationSchema={SigninSchema}
                 onSubmit ={ async values => { await new Promise( 
-                    createUser(
+                    loginUser(
                                 { variables: {
                                     email : values.email,
                                     password : values.password
