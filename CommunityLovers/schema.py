@@ -13,6 +13,7 @@ class AuthMutation(graphene.ObjectType):
     register = mutations.Register.Field()
     verify_account = mutations.VerifyAccount.Field()
     token_auth = mutations.ObtainJSONWebToken.Field()
+    verify_token = mutations.VerifyToken.Field()
     update_account = mutations.UpdateAccount.Field()
 
 class Query(UserQuery,CommunityQuery, EventQuery,graphene.ObjectType):
