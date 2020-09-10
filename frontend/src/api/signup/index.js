@@ -7,7 +7,6 @@ export const CREATE_USER = gql `mutation addMember($first_name:String!, $last_na
                             password1: $password1, password2:$password2}){
                             customUser{id,firstName, lastName, email}
                             errors{field,messages},
-                            success,
                         }}`
 
                 

@@ -1,9 +1,12 @@
 import React from "react"
 import {useMutation } from 'react-apollo';
-import {CREATE_USER} from "../../../api/signup/index"
+
 import {SignupSchema} from "./schema/index"
 import { Formik, Form, Field} from 'formik'
 
+import {CREATE_USER} from "../../../api/signup/index"
+import { ErrorHandler} from '../../../utils/handlers/errors/index'
+import {SuccessHandler} from '../../../utils/handlers/success/index'
 // lets use this link later when we want handle errors
 //import { onError } from 'apollo-link-error';
 
@@ -17,16 +20,10 @@ function SignupForm (){
         
 
         return(
-            <> 
-                <ul>
-                { data ? data.addMember.errors.map(element=>(
-                    element.messages.map(element=>(
-                        <li>{element}</li>
-                    ))
-                ))  
-                    : undefined }
-                    {data ? <li>{String(data.addMember.success)}</li> : undefined}
-                </ul>
+            <> { data ?
+                 (<><ErrorHandler  data={data.addMember}  error_field="messages" />
+                <SuccessHandler data={data.addMember}  /></>)
+              : undefined}
                 <Formik
                 initialValues={{
                         firstName: "",

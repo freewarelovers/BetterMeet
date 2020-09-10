@@ -4,6 +4,8 @@ import {LOGIN_USER} from "../../../api/login/index"
 import {SigninSchema} from "./schema/index"
 import { Formik, Form, Field} from 'formik'
 
+import { ErrorHandler} from '../../../utils/handlers/errors/index'
+import {SuccessHandler} from '../../../utils/handlers/success/index'
 // lets use this link later when we want handle errors
 //import { onError } from 'apollo-link-error';
 
@@ -17,13 +19,12 @@ function SigninForm (){
 
         return(
             <>
-                <ul>
-                { data ? (data.tokenAuth.errors.nonFieldErrors.map(element=>(
-                        <li>{element.message}</li>
-                ))  )               
-                    : undefined }
-                {data ? <li>{String(data.tokenAuth.success)}</li> : undefined}
-                </ul>
+
+                { data ?
+                 (<><ErrorHandler  data ={data.tokenAuth} errors_function="nonFieldErrors" error_field="message" />
+                <SuccessHandler data ={data.tokenAuth}  /></>)
+                : undefined}
+               
 
                 <Formik
                 initialValues={{
