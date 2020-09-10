@@ -3,17 +3,18 @@ import React from "react"
 export class  ErrorHandler extends React.Component{
     render(){
        const data =  this.props.data
-        console.log( data.errors[this.props.errors_function])
+    
         if (this.props.errors_function){
             return(
                 <ul>
             
-                { data.errors ? data.errors[this.props.errors_function].map(element=>(
-
-                        <li>{element.message}</li>
-                  
-                ))  
-                    : undefined }
+                { 
+                    data.errors ? data.errors[this.props.errors_function].map(
+                        element=>(
+                            <li>{element.message}</li>
+                        ))  
+                    : undefined                    
+                }
                 </ul>
             )
         }

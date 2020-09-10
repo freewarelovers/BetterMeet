@@ -12,19 +12,17 @@ import {SuccessHandler} from '../../../utils/handlers/success/index'
 function SigninForm (){
  
     const [loginUser, { data,error,loading }  ] = useMutation(LOGIN_USER)
-        if (error) return (
-        <>{console.log("this is an error",error)}</>)
         if (loading) return (<p>{console.log("this is a loading",loading)}</p>)
-        
 
+      
         return(
             <>
 
                 { data ?
                  (<><ErrorHandler  data ={data.tokenAuth} errors_function="nonFieldErrors" error_field="message" />
-                <SuccessHandler data ={data.tokenAuth}  /></>)
+                <SuccessHandler data ={data.tokenAuth}  auth={true} /></>)
                 : undefined}
-               
+            
 
                 <Formik
                 initialValues={{
@@ -42,32 +40,30 @@ function SigninForm (){
                           }}
                     >
                     {({ errors, touched }) => (
-                    <Form>
+                        <Form>
+                        <label htmlFor="email">Email</label>
+                        <Field
+                        id="email"
+                        name="email"
+                        placeholder="example@example.com"
+                        type="email"
+                        />
+                        {errors.email && touched.email ?
+                        (<div>{errors.email}</div>) : null}
 
-                    <label htmlFor="email">Email</label>
-                    <Field
-                    id="email"
-                    name="email"
-                    placeholder="example@example.com"
-                    type="email"
-                    />
-                    {errors.email && touched.email ?
-                    (<div>{errors.email}</div>) : null}
-
-                    <label htmlFor="password">Password</label>
-                    <Field
-                    id="password"
-                    name="password"
-                    placeholder="password"
-                    type="password"
-                    />
-                    {errors.password && touched.password ?
-                    (<div>{errors.password}</div>) : null}
-
-                 
-                    <button type="submit">Submit</button>
+                        <label htmlFor="password">Password</label>
+                        <Field
+                        id="password"
+                        name="password"
+                        placeholder="password"
+                        type="password"
+                        />
+                        {errors.password && touched.password ?
+                        (<div>{errors.password}</div>) : null}
                     
-                    </Form>)}
+                        <button type="submit">Submit</button>
+                        
+                        </Form>)}
                    
                 </Formik>
             </>
