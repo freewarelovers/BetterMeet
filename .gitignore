@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Django #
 *.log
 *.pot
@@ -5,6 +6,7 @@
 __pycache__
 db.sqlite3
 media
+communityenv
 # key.py #
 # Backup files # 
 *.bak 
@@ -46,7 +48,7 @@ wheels/
 *.egg 
 *.manifest 
 *.spec 
-
+node_modules
 # Installer logs 
 pip-log.txt 
 pip-delete-this-directory.txt 
@@ -119,4 +121,3 @@ GitHub.sublime-settings
 
 
 
- 
