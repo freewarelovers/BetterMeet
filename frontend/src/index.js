@@ -14,6 +14,7 @@ import {apolloClient} from "./apolloClient"
 import Home from "./pages/home/index"
 import Signup from "./pages/registration/signup/index"
 import Signin from "./pages/registration/signin/index"
+import Dashboard from "./pages/events/dashboard/index"
 
 import './index.css';
 
@@ -23,15 +24,14 @@ ReactDOM.render(
   <ApolloProvider client={apolloClient}>
     <Router>
     <Switch>
-      <Route exact path="/">
-        <Home/>
-      </Route>  
-      <Route exact path="/signup">
-        <Signup/>
-      </Route>
-      <Route exact path="/signin">
-        <Signin/>
-      </Route>
+    
+      <Route exact path="/" component={Home} />
+     
+      <Route exact path="/signup" component={Signup} />
+   
+      <Route exact path="/signin" component={Signin} />
+      <Route  path="/dashboard/:name" component={Dashboard} />
+
       </Switch>     
     </Router>
     </ApolloProvider>    

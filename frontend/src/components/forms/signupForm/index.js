@@ -1,10 +1,12 @@
-import React from "react"
+import React , { useState }from "react"
 import {useMutation } from 'react-apollo';
 
 import {SignupSchema} from "./schema/index"
 import { Formik, Form, Field} from 'formik'
 
 import {CREATE_USER} from "../../../api/signup/index"
+
+import {Redirect} from "react-router-dom"
 import { ErrorHandler} from '../../../utils/handlers/errors/index'
 import {SuccessHandler} from '../../../utils/handlers/success/index'
 // lets use this link later when we want handle errors
@@ -13,17 +15,42 @@ import {SuccessHandler} from '../../../utils/handlers/success/index'
 function SignupForm (){
  
     const [createUser, { data,error,loading }  ] = useMutation(CREATE_USER)
+    const [redirect,setRedirect]  = useState(false)
+
         if (error) return (
         <>{console.log("this is an error",error)}</>)
         if (loading) return (<p>{console.log("this is a loading",loading)}</p>)
-       
+
+        if(data){
+            if(data.addMember.customUser){
+                return <Redirect 
+                to={{pathname:"signin" ,
+                state:{ message:'User created successfuly you can login now'}}}/>
+            }
+        }
         
+          
 
         return(
             <> { data ?
-                 (<><ErrorHandler  data={data.addMember}  error_field="messages" />
-                <SuccessHandler data={data.addMember}  /></>)
-              : undefined}
+                (
+                    <>
+                        <ErrorHandler  data={data.addMember}  error_field="messages" />
+                        <SuccessHandler 
+                            data={data.addMember}   
+                            message='User created successfuly you will be redirected soon'                     
+                        /> 
+                                           
+                    </>
+                    
+                                           
+                )
+                   
+                :   undefined }
+                
+                
+                
+               
                 <Formik
                 initialValues={{
                         firstName: "",
@@ -34,6 +61,7 @@ function SignupForm (){
                 }}
                 validationSchema={SignupSchema}
                 onSubmit ={ async values => { await new Promise( 
+
                     createUser(
                                 { variables: {
                                     first_name: values.firstName,

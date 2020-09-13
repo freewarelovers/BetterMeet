@@ -6,5 +6,15 @@ export const LOGIN_USER = gql`mutation tokenAuth($email:String!, $password:Strin
                 token,
                 errors,
                 success,
+                user{id}
             }
+}`
+
+export const CHECK_AUTH_TOKEN = gql`mutation verifyToken($token:String!){
+      verifyToken(token:$token){
+          token,
+          errors,
+          success,
+          paylaod
+      }
 }`

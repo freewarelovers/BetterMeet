@@ -1,4 +1,6 @@
 import React from "react"
+import {Redirect} from "react-router-dom";
+
 
 export class SuccessHandler extends React.Component{
 
@@ -7,12 +9,15 @@ export class SuccessHandler extends React.Component{
         const data = this.props.data
         if (data.token  && this.props.auth===true){
             localStorage.setItem('jwt', data.token)
+            localStorage.setItem('user_id', data.user.id)
         }
+        
         return(
             <>        
             { 
-                !data.errors  ? 
-                <div>request success</div> : <>errors</>
+                data.errors.length === 0  ?
+                 
+                <div>{this.props.message}</div> :undefined
             }            
             </>
         )

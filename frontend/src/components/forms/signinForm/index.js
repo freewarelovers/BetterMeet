@@ -1,27 +1,40 @@
-import React from "react"
+import React, { useState } from "react"
 import {useMutation } from 'react-apollo';
 import {LOGIN_USER} from "../../../api/login/index"
 import {SigninSchema} from "./schema/index"
 import { Formik, Form, Field} from 'formik'
-
+import {Redirect} from "react-router-dom"
 import { ErrorHandler} from '../../../utils/handlers/errors/index'
 import {SuccessHandler} from '../../../utils/handlers/success/index'
 // lets use this link later when we want handle errors
 //import { onError } from 'apollo-link-error';
 
 function SigninForm (){
- 
+    
     const [loginUser, { data,error,loading }  ] = useMutation(LOGIN_USER)
-        if (loading) return (<p>{console.log("this is a loading",loading)}</p>)
-
-      
+   
+    if (loading) return (<p>{console.log("this is a loading",loading)}</p>)
+    
+    
+        if(data){
+            if(data.tokenAuth.success){
+                return <Redirect 
+                to={{pathname:"dashboard/me",
+                state:{ message:'Logged in successfuly'}}}
+                />
+            }
+        }
+                   
+    
         return(
             <>
 
                 { data ?
-                 (<><ErrorHandler  data ={data.tokenAuth} errors_function="nonFieldErrors" error_field="message" />
-                <SuccessHandler data ={data.tokenAuth}  auth={true} /></>)
-                : undefined}
+                (<>
+                    <ErrorHandler  data ={data.tokenAuth} errors_function="nonFieldErrors" error_field="message" />
+                    <SuccessHandler data ={data.tokenAuth}  auth={true} message="successfuly authentificated you will be redirected soon" />
+                </>)
+                :   undefined}
             
 
                 <Formik
