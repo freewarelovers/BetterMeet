@@ -15,6 +15,7 @@ import Home from "./pages/home/index"
 import Signup from "./pages/registration/signup/index"
 import Signin from "./pages/registration/signin/index"
 import Dashboard from "./pages/events/dashboard/index"
+import  CreateGroup from "./pages/groups/create_group/index"
 
 import './index.css';
 
@@ -24,14 +25,16 @@ ReactDOM.render(
   <ApolloProvider client={apolloClient}>
     <Router>
     <Switch>
-    
+       
       <Route exact path="/" component={Home} />
      
       <Route exact path="/signup" component={Signup} />
    
       <Route exact path="/signin" component={Signin} />
       <Route  path="/dashboard/:name" component={Dashboard} />
-
+      
+      <Route exact   path="create-group/" component={CreateGroup} />
+     
       </Switch>     
     </Router>
     </ApolloProvider>    

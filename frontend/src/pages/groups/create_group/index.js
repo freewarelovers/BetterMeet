@@ -1,14 +1,16 @@
-import React ,{ useEffect,useState } from "react"
+import React ,{ useEffect } from "react"
 import {useMutation } from 'react-apollo';
 import { CHECK_AUTH_TOKEN} from '../../../api/login/index'
-import {Link, Redirect} from "react-router-dom"
+import {Redirect,Link} from "react-router-dom"
 
-function  Dashboard (){
+
+function CreateGroup ()  {
+
 
     const token = localStorage.getItem('jwt')
 
+    let is_auth = false
 
-    const [is_auth, setAuth] = useState(false)
     const [checkAuthToken, { data,error,loading }  ] = useMutation(CHECK_AUTH_TOKEN) 
 
     
@@ -23,30 +25,26 @@ function  Dashboard (){
     }, [token,checkAuthToken]);
 
 
-    if(data){ setAuth(data.verifyToken.success)}
+    if(data){is_auth = data.verifyToken.success}
 
     if (error) console.log(error)
 
     if (loading) return <div>{loading}</div>
-  
 
-    if (is_auth===false){
-        
+
+    if (!is_auth){
         return <Redirect 
         to={{pathname:"/signin",
         state:{message: "you are not logged in  try to login again"}}}
         />        
     }
 
+    return(
+        <>
+            <Link to="/create-group">go back to dash</Link>
+            <div>helloo there lets create a new group</div>
+        </>
+    )
 
-
-        return(
-            <>
-                <Link to="/create-group"></Link>
-                <div>{this.props.location.state.message}</div>
-            </>
-        )
-    
 }
-
-export default Dashboard
+export default CreateGroup
