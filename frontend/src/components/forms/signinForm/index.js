@@ -18,7 +18,6 @@ function SigninForm (){
     
       
     if(data){
-        console.log(data)
         if(data.tokenAuth.success){
             localStorage.setItem("jwt", data.tokenAuth.token)
             return <Redirect 

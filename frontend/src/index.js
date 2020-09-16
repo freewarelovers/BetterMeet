@@ -33,7 +33,7 @@ ReactDOM.render(
       <Route exact path="/signin" component={Signin} />
       <Route  path="/dashboard/:name" component={Dashboard} />
       
-      <Route exact   path="create-group/" component={CreateGroup} />
+      <Route exact   path="/create-group" component={CreateGroup} />
      
       </Switch>     
     </Router>

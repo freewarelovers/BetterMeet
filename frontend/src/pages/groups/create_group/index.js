@@ -8,12 +8,10 @@ function CreateGroup ()  {
 
 
     const token = localStorage.getItem('jwt')
+    const [checkAuthToken, { data,error,loading }  ] = useMutation(CHECK_AUTH_TOKEN)
 
     let is_auth = false
 
-    const [checkAuthToken, { data,error,loading }  ] = useMutation(CHECK_AUTH_TOKEN) 
-
-    
     useEffect(() => {
        
         if (token){
@@ -22,17 +20,17 @@ function CreateGroup ()  {
             }})
          }
         
-    }, [token,checkAuthToken]);
+    }, [checkAuthToken, token]);
 
 
-    if(data){is_auth = data.verifyToken.success}
+    if(data){is_auth =data.verifyToken.success}
 
     if (error) console.log(error)
 
     if (loading) return <div>{loading}</div>
 
 
-    if (!is_auth){
+    if (is_auth===false){
         return <Redirect 
         to={{pathname:"/signin",
         state:{message: "you are not logged in  try to login again"}}}
