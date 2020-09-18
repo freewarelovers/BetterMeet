@@ -42,7 +42,7 @@ function CreateGroup ()  {
     if(loading_auth.current===true){
         return <div>Hey im loading :/ </div>
     }
-    
+
     if (is_auth.current===true){
         return(
             <>

@@ -24,18 +24,18 @@ function  Dashboard (){
         else{
             is_auth.current =false
          }
-    },[verifyAuthToken,token, is_auth]);
+    },[verifyAuthToken,token]);
 
 
     if (error) console.log(error)
 
     if (loading) return <div>{loading}</div>
-    
+
     if (data) {
         is_auth.current = data.verifyToken.success 
         loading_auth.current = false
     }
-
+    console.log(is_auth.current)
 
     if(loading_auth.current===true){
         return <div>Hey im loading :/ </div>
