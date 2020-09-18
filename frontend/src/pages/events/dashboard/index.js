@@ -1,4 +1,4 @@
-import React ,{ useEffect} from "react"
+import React ,{ useEffect, useRef} from "react"
 import {useMutation } from 'react-apollo';
 import { CHECK_AUTH_TOKEN} from '../../../api/login/index'
 import {Link, Redirect} from "react-router-dom"
@@ -6,37 +6,51 @@ import {Link, Redirect} from "react-router-dom"
 function  Dashboard (){
 
     const token = localStorage.getItem('jwt')
-     let is_auth = true
+     let is_auth = useRef(false)
+     let loading_auth = useRef(true)
     const [verifyAuthToken, { data,error,loading }  ] = useMutation(CHECK_AUTH_TOKEN)
 
    
     useEffect( () => {
-        console.log(token)
+        
         if (token){
            verifyAuthToken({variables : {
                     token : token
-                }}) 
-                
-            
-            }  
-    }, [verifyAuthToken,token]);
+                }}).then(res=>{
+                    is_auth.current = res.data.verifyToken.success
+                    loading_auth.current = false
+                })                
+        }  
+        else{
+            is_auth.current =false
+         }
+    },[verifyAuthToken,token, is_auth]);
 
 
     if (error) console.log(error)
 
     if (loading) return <div>{loading}</div>
-    if (data) is_auth = data.verifyToken.success
-
-    console.log("is uath out of promise ",is_auth)
-    if (is_auth===true){ 
-    return(
-        <>
-            <Link to="/create-group">Create a new group</Link>
-            <div>hey</div>
-        </>
-    )
+    
+    if (data) {
+        is_auth.current = data.verifyToken.success 
+        loading_auth.current = false
     }
-    if (is_auth===false){        
+
+
+    if(loading_auth.current===true){
+        return <div>Hey im loading :/ </div>
+    }
+
+    if (is_auth.current===true){ 
+        return(
+            <>
+                <Link to="/create-group">Create a new group</Link>
+                <div>hey</div>
+            </>
+        )
+    }
+
+    if (is_auth.current===false){        
         return <Redirect 
         to={{pathname:"/signin",
         state:{message: "you are not logged in  try to login again"}}}
