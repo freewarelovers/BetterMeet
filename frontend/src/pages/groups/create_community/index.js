@@ -2,8 +2,7 @@ import React ,{ useEffect,useRef } from "react"
 import {useMutation } from 'react-apollo';
 import { CHECK_AUTH_TOKEN} from '../../../api/login/index'
 import {Redirect,Link} from "react-router-dom"
-
-
+import CreateCommunityForm  from "../../../components/forms/CommunityCreationForm/index"
 function CreateCommunity ()  {
 
     const token = localStorage.getItem('jwt')
@@ -48,6 +47,7 @@ function CreateCommunity ()  {
             <>
                 <Link to="dashboard/me">go back to dash</Link>
                 <div>helloo there lets create a new group</div>
+                <CreateCommunityForm /> 
             </>
         )
     }
