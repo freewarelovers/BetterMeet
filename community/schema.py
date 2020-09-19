@@ -1,6 +1,10 @@
 from graphene_django import DjangoObjectType
 import graphene
+from graphene_django.forms.mutation import DjangoModelFormMutation
+
 from community.models import Community,CommunityOwner
+from .froms import CommunityCreationForm, CommunityOwnerCreationForm
+
 
 class CommunityType(DjangoObjectType):
     class Meta :
@@ -14,17 +18,22 @@ class CommunityOwnerType(DjangoObjectType):
         fields = '__all__'
 
 ## mutations
-class MembersMutation(DjangoModelFormMutation):
-    member =  graphene.Field(CommunityType)
+class CommunitysMutation(DjangoModelFormMutation):
+    community =  graphene.Field(CommunityType)
     class Meta:
-        form_class = MemberCreationForm
+        form_class = CommunityCreationForm
 
-
+class CommunitysOwnersMutation(DjangoModelFormMutation):
+    community_owner =  graphene.Field(CommunityOwnerType)
+    class Meta:
+        form_class = CommunityOwnerCreationForm
 
 
 ### main mutation
 class Mutation(graphene.ObjectType):
-    add_member = MembersMutation.Field()
+    add_community = CommunitysMutation.Field()
+    add_owner_to_community = CommunitysOwnersMutation.Field()
+
 
 ### main query
 class Query(graphene.ObjectType):

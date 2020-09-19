@@ -26,8 +26,6 @@ class MembersMutation(DjangoModelFormMutation):
         form_class = MemberCreationForm
 
 
-
-
 ### main mutation
 class Mutation(graphene.ObjectType):
     add_member = MembersMutation.Field()

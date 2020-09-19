@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-
+from django.utils.text import slugify
 
 from base.models import Tag,CustomUser
 # Create your models here.
@@ -16,6 +16,11 @@ class Community(models.Model):
     class Meta:
         verbose_name = "Community"
         verbose_name_plural = "Communitys"
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''                
+        super(Community, self).save(*args, **kwargs)
+        self.slug= slugify("{} {}".format(self.name,self.id))
     def __str__(self):
         return str(self.name)
 

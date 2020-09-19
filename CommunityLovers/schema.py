@@ -3,7 +3,7 @@ import graphql_jwt
 from graphql_auth import mutations
 
 from base.schema import Query as UserQuery,Mutation as UserMutation
-from community.schema import Query as CommunityQuery
+from community.schema import Query as CommunityQuery , Mutation as CommunityMutation
 from event.schema import Query as EventQuery
 
 
@@ -18,6 +18,6 @@ class AuthMutation(graphene.ObjectType):
 
 class Query(UserQuery,CommunityQuery, EventQuery,graphene.ObjectType):
    pass
-class Mutation(AuthMutation,UserMutation,graphene.ObjectType):
+class Mutation(AuthMutation,UserMutation,CommunityMutation,graphene.ObjectType):
     pass
 schema = graphene.Schema(query=Query, mutation=Mutation)
