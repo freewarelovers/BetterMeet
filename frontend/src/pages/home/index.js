@@ -7,7 +7,7 @@ import {Redirect, Link} from "react-router-dom"
 function Home (){
     const token = localStorage.getItem('jwt')
     let is_auth = useRef(false)
-    let loading_auth = useRef(true)
+    let loading_auth = useRef( token ? true :  false)
     const [verifyAuthToken, { data,error,loading }  ] = useMutation(CHECK_AUTH_TOKEN)
 
     useEffect(() => {

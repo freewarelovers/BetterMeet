@@ -6,7 +6,7 @@ import {Redirect,Link} from "react-router-dom"
 function Signup (){
     const token = localStorage.getItem('jwt')
     let is_auth = useRef(false)
-    let loading_auth = useRef(true)
+    let loading_auth = useRef( token ? true :  false)
     const [verifyAuthToken, { data,error,loading }  ] = useMutation(CHECK_AUTH_TOKEN)
 
     useEffect(() => {
@@ -44,7 +44,7 @@ function Signup (){
             <h1>Signup</h1>
             </header>            
             <SignupForm />
-            <Link to="signin/">Already have an account create a one here</Link>
+            <Link to="/signin/">Already have an account create a one here</Link>
             </div>
         )
     }

@@ -7,7 +7,7 @@ function  Dashboard (){
 
     const token = localStorage.getItem('jwt')
      let is_auth = useRef(false)
-     let loading_auth = useRef(true)
+     let loading_auth = useRef( token ? true :  false)
     const [verifyAuthToken, { data,error,loading }  ] = useMutation(CHECK_AUTH_TOKEN)
 
    
@@ -44,7 +44,7 @@ function  Dashboard (){
     if (is_auth.current===true){ 
         return(
             <>
-                <Link to="/create-group">Create a new group</Link>
+                <Link to="/create-group">Create a new community</Link>
                 <div>hey</div>
             </>
         )

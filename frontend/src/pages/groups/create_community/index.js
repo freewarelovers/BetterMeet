@@ -4,10 +4,10 @@ import { CHECK_AUTH_TOKEN} from '../../../api/login/index'
 import {Redirect,Link} from "react-router-dom"
 
 
-function CreateGroup ()  {
+function CreateCommunity ()  {
 
     const token = localStorage.getItem('jwt')
-    let loading_auth = useRef(true)
+    let loading_auth = useRef( token ? true :  false)
     let is_auth =useRef(true)  
     const [verifyAuthToken, { data,error,loading }  ] = useMutation(CHECK_AUTH_TOKEN)
 
@@ -62,4 +62,4 @@ function CreateGroup ()  {
    
 
 }
-export default CreateGroup
+export default CreateCommunity

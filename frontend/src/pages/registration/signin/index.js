@@ -6,9 +6,9 @@ import {Redirect,Link, useLocation} from "react-router-dom"
 
 function Signin (){
     
-    const token = localStorage.getItem('jwt')
+    const  token = localStorage.getItem('jwt')
     let is_auth = useRef(false)
-    let loading_auth = useRef(true)
+    let loading_auth = useRef( token ? true :  false)
     const [verifyAuthToken, { data,error,loading }  ] = useMutation(CHECK_AUTH_TOKEN)
 
     let location = useLocation();
@@ -18,6 +18,7 @@ function Signin (){
     useEffect(() => {
        
         if (token){
+            
             verifyAuthToken({variables : {
                 token : token
             }}).then(res=>{
@@ -26,15 +27,17 @@ function Signin (){
             })
          }        
          else{
-            is_auth.current =false
+             console.log("there is no token here")
+            is_auth.current = false
+            loading_auth.current = false
          }
     }, [verifyAuthToken,token]);
 
-
+    console.log( loading_auth.current )
     if (error) console.log(error)
 
     if (loading) return <div>{loading}</div>
-
+    
     if (data) {
         is_auth.current = data.verifyToken.success 
         loading_auth.current = false
