@@ -13,7 +13,20 @@ class CommunityOwnerType(DjangoObjectType):
         model = CommunityOwner
         fields = '__all__'
 
+## mutations
+class MembersMutation(DjangoModelFormMutation):
+    member =  graphene.Field(CommunityType)
+    class Meta:
+        form_class = MemberCreationForm
 
+
+
+
+### main mutation
+class Mutation(graphene.ObjectType):
+    add_member = MembersMutation.Field()
+
+### main query
 class Query(graphene.ObjectType):
     all_communitys = graphene.List(CommunityType)
     all_communitysOwners = graphene.List(CommunityOwnerType)

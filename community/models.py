@@ -9,7 +9,7 @@ from base.models import Tag,CustomUser
 
 class Community(models.Model):
     name = models.CharField(_('community name'), max_length=200)
-    slug = models.SlugField(_('community slug'))
+    slug = models.SlugField(_('community slug'),null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -20,6 +20,7 @@ function SigninForm (){
     if(data){
         if(data.tokenAuth.success){
             localStorage.setItem("jwt", data.tokenAuth.token)
+            localStorage.setItem("jwt_refresh", data.tokenAuth.refreshToken)
             return <Redirect 
             from="/signin"
             to={{pathname:"dashboard/me",

@@ -4,7 +4,7 @@ import {createHttpLink} from 'apollo-link-http';
 import {InMemoryCache} from "apollo-cache-inmemory"
 import { setContext } from 'apollo-link-context';
 import { onError } from "apollo-link-error";
-
+import { ApolloLink, Observable } from 'apollo-link';
 const httpLink = createHttpLink({
   uri: 'http://localhost:8000/graphql/',
 });
@@ -22,38 +22,9 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
-const error  = onError(({ graphQLErrors, networkError, operation, forward }) => {
-  if (graphQLErrors) {
-    for (let err of graphQLErrors) {
-      switch (err.extensions.code) {
-        case 'UNAUTHENTICATED':
-          // error code is set to UNAUTHENTICATED
-          // when AuthenticationError thrown in resolver
-
-          // modify the operation context with a new token
-          const oldHeaders = operation.getContext().headers;
-          operation.setContext({
-            headers: {
-              ...oldHeaders,
-              authorization:  token,
-            },
-          });
-          // retry the request, returning the new observable
-          return forward(operation);
-      }
-    }
-  }
-  if (networkError) {
-    console.log(`[Network error]: ${networkError}`);
-    // if you would also like to retry automatically on
-    // network errors, we recommend that you use
-    // apollo-link-retry
-  }
-}
-);
 
 export const apolloClient = new ApolloClient({
     url : "http://localhost:8000/graphql/",
-    link: error.concat(authLink.concat(httpLink)),
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache()
 });
