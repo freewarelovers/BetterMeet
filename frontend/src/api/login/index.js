@@ -6,7 +6,7 @@ export const LOGIN_USER = gql`mutation tokenAuth($email:String!, $password:Strin
                 refreshToken,
                 errors,
                 success,
-                user{id}
+                user{pk}
             }
 }`
 
