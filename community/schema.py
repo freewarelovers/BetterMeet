@@ -1,5 +1,6 @@
 from graphene_django import DjangoObjectType
 import graphene
+from graphql_jwt.decorators import login_required
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from community.models import Community,CommunityOwner
@@ -21,7 +22,9 @@ class CommunityOwnerType(DjangoObjectType):
 ## mutations
 class CommunitysMutation(DjangoModelFormMutation):
     community =  graphene.Field(CommunityType)
-   
+    @login_required
+    def resolve_community(self, root, info, **kwargs):
+       return info.context.community
     class Meta:
         form_class = CommunityCreationForm
 
@@ -36,6 +39,10 @@ class Mutation(graphene.ObjectType):
     add_community = CommunitysMutation.Field()
     add_owner_to_community = CommunitysOwnersMutation.Field()
 
+
+    @login_required
+    def resolve_add_owner_to_community(self, root, info, **kwargs):
+        pass
   
 
 
@@ -45,6 +52,6 @@ class Query(graphene.ObjectType):
     get_communitys_by_id = graphene.List(CommunityType, id=graphene.Int())
     all_communitysOwners = graphene.List(CommunityOwnerType)
 
-    def  resolve_get_communitys_by_id(root, info, id):
+    def resolve_get_communitys_by_id(root, info, id):
         return Community.objects.filter(id=id)
     
