@@ -5,8 +5,11 @@ import { RegistrationSuccessHandler} from '../../../utils/handlers/success/index
 import { Formik, Form, Field} from 'formik'
 import {useMutation } from 'react-apollo';
 import {CreateGroupSchema} from "./schema/index"
+import {useHistory } from "react-router-dom"
 
 export default function CreateCommunityForm(){
+    const history = useHistory();
+
     const [user_id, setUSerId]=   useState(localStorage.getItem('user_id'))
     const [createCommunity, { data,loading, error}  ] = useMutation(CREATE_COMMUNITY)
     const [createCommunityOwner, {}] = useMutation(CREATE_COMMUNITY_OWNER)
@@ -41,12 +44,18 @@ export default function CreateCommunityForm(){
                             console.log(data)
                             if(data.data.addCommunity.errors.length < 1){
                                 
-                                console.log(createCommunityOwner(
+                              createCommunityOwner(
                                     { variables: {
                                         community : data.data.addCommunity.community.id,
                                         owner : user_id
                                      }}
-                                ))
+                                ).then(data=>{
+                                    if(data.data.addOwnerToCommunity.errors.length<1){
+                                        history.push(`community/${data.data.addCommunity.community.id}`)
+                                    }
+                                }
+
+                                )
                             }                                
                         }))
                     }}

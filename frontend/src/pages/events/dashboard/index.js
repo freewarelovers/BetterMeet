@@ -44,7 +44,7 @@ function  Dashboard (){
     if (is_auth.current===true){ 
         return(
             <>
-                <Link to="/create-group">Create a new community</Link>
+                <Link to="/create-community">Create a new community</Link>
                 <div>hey</div>
             </>
         )

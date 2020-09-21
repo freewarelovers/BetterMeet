@@ -1,9 +1,10 @@
 import React ,{ useEffect,useRef } from "react"
 import {useMutation } from 'react-apollo';
 import { CHECK_AUTH_TOKEN} from '../../../api/login/index'
-import {Redirect,Link} from "react-router-dom"
+import {Redirect, Link  } from "react-router-dom"
 import CreateCommunityForm  from "../../../components/forms/CommunityCreationForm/index"
 function CreateCommunity ()  {
+   
 
     const token = localStorage.getItem('jwt')
     let loading_auth = useRef( token ? true :  false)
