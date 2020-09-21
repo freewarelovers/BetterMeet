@@ -1,10 +1,11 @@
 import React from "react"
+//import queryString from "query-string"
+import {useRouteMatch} from "react-router-dom"
+export default function CommunityPage (){
 
-
-export default function CommunityPage (props){
-
-
+    const location = useRouteMatch();
+    console.log(location.params.pk)
     return(
-        <div>Welcome to group {this.props.group.name}</div>
+        <div>Welcome to group </div>
     )
 }

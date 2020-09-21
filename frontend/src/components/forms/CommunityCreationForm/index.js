@@ -9,10 +9,11 @@ import {useHistory } from "react-router-dom"
 
 export default function CreateCommunityForm(){
     const history = useHistory();
+  
 
-    const [user_id, setUSerId]=   useState(localStorage.getItem('user_id'))
+    const [user_id]=  useState(localStorage.getItem('user_id'))
     const [createCommunity, { data,loading, error}  ] = useMutation(CREATE_COMMUNITY)
-    const [createCommunityOwner, {}] = useMutation(CREATE_COMMUNITY_OWNER)
+    const [createCommunityOwner] = useMutation(CREATE_COMMUNITY_OWNER)
     if (error)  console.log(error)
     if (loading) return (<p>{loading}</p>)
    
@@ -41,17 +42,17 @@ export default function CreateCommunityForm(){
                                 name : values.name,
                             }}
                         ).then((data)=>{
-                            console.log(data)
+                        
                             if(data.data.addCommunity.errors.length < 1){
-                                
+                                let community =data.data.addCommunity.community.id
                               createCommunityOwner(
                                     { variables: {
-                                        community : data.data.addCommunity.community.id,
+                                        community : community,
                                         owner : user_id
                                      }}
                                 ).then(data=>{
                                     if(data.data.addOwnerToCommunity.errors.length<1){
-                                        history.push(`community/${data.data.addCommunity.community.id}`)
+                                        history.push(`community/${community}`)
                                     }
                                 }
 
@@ -72,7 +73,6 @@ export default function CreateCommunityForm(){
                         />
                         {errors.name && touched.name ?
                         (<div>{errors.name}</div>) : null}
-
                         <button type="submit">Submit</button>                    
                     </Form>)}
            

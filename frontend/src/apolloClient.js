@@ -3,8 +3,8 @@ import ApolloClient  from 'apollo-client';
 import {createHttpLink} from 'apollo-link-http';
 import {InMemoryCache} from "apollo-cache-inmemory"
 import { setContext } from 'apollo-link-context';
-import { onError } from "apollo-link-error";
-import { ApolloLink, Observable } from 'apollo-link';
+///import { onError } from "apollo-link-error";
+//import { ApolloLink, Observable } from 'apollo-link';
 const httpLink = createHttpLink({
   uri: 'http://localhost:8000/graphql/',
 });

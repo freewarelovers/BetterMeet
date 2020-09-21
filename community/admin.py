@@ -6,7 +6,7 @@ from .models import Community, CommunityOwner
 class CommunityAdmin(admin.ModelAdmin):
     model =Community
     fieldsets  = [
-        ("General info", {'fields': ['name']}),
+        ("General info", {'fields': ['name', 'slug']}),
         ]
 
 @admin.register(CommunityOwner)

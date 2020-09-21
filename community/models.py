@@ -18,9 +18,12 @@ class Community(models.Model):
         verbose_name_plural = "Communitys"
 
     def save(self, *args, **kwargs):
-        ''' On save, update timestamps '''                
+        ''' On save, update timestamps '''  
+        print(self.slug)    
+        self.slug= slugify("{} {}".format(self.name,self.pk))          
         super(Community, self).save(*args, **kwargs)
-        self.slug= slugify("{} {}".format(self.name,self.id))
+       
+
     def __str__(self):
         return str(self.name)
 
