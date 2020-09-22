@@ -14,7 +14,7 @@ export default function CreateCommunityForm(){
     const [user_id]=  useState(localStorage.getItem('user_id'))
     const [createCommunity, { data,loading, error}  ] = useMutation(CREATE_COMMUNITY)
     const [createCommunityOwner] = useMutation(CREATE_COMMUNITY_OWNER)
-    if(data)console.log(data)
+    
     if (error)  console.log(error)
     if (loading) return (<p>{loading}</p>)
    
