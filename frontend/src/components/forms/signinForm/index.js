@@ -19,9 +19,7 @@ function SigninForm (){
       
     if(data){
         if(data.tokenAuth.success){
-            localStorage.setItem("jwt", data.tokenAuth.token)
-            localStorage.setItem("jwt_refresh", data.tokenAuth.refreshToken)
-            localStorage.setItem('user_id', data.tokenAuth.user.pk)
+           
             return <Redirect 
             from="/signin"
             to={{pathname:"dashboard/me",
@@ -53,7 +51,14 @@ function SigninForm (){
                                     email : values.email,
                                     password : values.password
                                 }}
-                            ))
+                            ).then(data=>{
+                                if(data.data.tokenAuth.success){
+                                    localStorage.setItem("jwt", data.data.tokenAuth.token)
+                                    localStorage.setItem("jwt_refresh", data.data.tokenAuth.refreshToken)
+                                    localStorage.setItem('user_id', data.data.tokenAuth.user.pk)
+                                }
+                                
+                            }))
                           }}
                     >
                     {({ errors, touched }) => (
