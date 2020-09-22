@@ -44,9 +44,8 @@ INSTALLED_APPS = [
     'base',
     'event',
     'community',
-    # refresh tokens are optional
-    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     "graphql_auth",
+     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     'django_filters',
 ]
 
@@ -63,9 +62,10 @@ MIDDLEWARE = [
 
 # Add CORS_ORIGIN_WHITELIST to allow these domains be authorized to make cross-site HTTP requests
 CORS_ORIGIN_WHITELIST = [
+    #React App domain
     "http://localhost:3000",
     "http://127.0.0.1:3000"
-    # your React App domain
+    
 ]
 
 ROOT_URLCONF = 'CommunityLovers.urls'

@@ -22,14 +22,24 @@ class CommunityOwnerType(DjangoObjectType):
 ## mutations
 class CommunitysMutation(DjangoModelFormMutation):
     community =  graphene.Field(CommunityType)
+
     @login_required
-    def resolve_community(self, root, info, **kwargs):
-       return info.context.community
+    def resolve_community( root, info, **kwargs):
+        print("a context ",  info.context.user)
+        print("this communty ",  root.community)
+        return root.community
+        
+
     class Meta:
         form_class = CommunityCreationForm
 
 class CommunitysOwnersMutation(DjangoModelFormMutation):
     community_owner =  graphene.Field(CommunityOwnerType)
+
+    @login_required
+    def resolve_community_owner(root, info, **kwargs):
+        return root.community_owner
+
     class Meta:
         form_class = CommunityOwnerCreationForm
 

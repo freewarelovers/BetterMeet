@@ -17,14 +17,13 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      //authorization: token ? `Bearer ${token}` : "",
+      Authorization: token ? "JWT "+token : "",
     }
   }
 });
 
 
 export const apolloClient = new ApolloClient({
-    url : "http://localhost:8000/graphql/",
     link: authLink.concat(httpLink),
     cache: new InMemoryCache()
 });
