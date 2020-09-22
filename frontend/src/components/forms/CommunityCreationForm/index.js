@@ -45,15 +45,16 @@ export default function CreateCommunityForm(){
                         ).then((data)=>{
                         
                             if(data.data.addCommunity.errors.length < 1){
-                                let community =data.data.addCommunity.community.id
+                                let id =data.data.addCommunity.community.id
+                                let slug =data.data.addCommunity.community.slug
                               createCommunityOwner(
                                     { variables: {
-                                        community : community,
+                                        community : id,
                                         owner : user_id
                                      }}
                                 ).then(data=>{
                                     if(data.data.addOwnerToCommunity.errors.length<1){
-                                        history.push(`community/${community}`)
+                                        history.push(`community/${slug}`)
                                     }
                                 }
 

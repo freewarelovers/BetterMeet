@@ -3,7 +3,7 @@ import { gql } from 'apollo-boost';
 export const CREATE_COMMUNITY = gql`mutation addCommunity($name:String!){
     addCommunity(input : {name: $name}){
         errors{field,messages},
-        community{id,name}
+        community{id,slug,name}
     }
 }`
 

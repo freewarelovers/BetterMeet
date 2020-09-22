@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from community.models import CommunityOwner
+
+from django.utils.text import slugify
 # Create your models here.
 class Event(models.Model):
     name = models.CharField(_('event name'),max_length=500 )
@@ -16,6 +18,11 @@ class Event(models.Model):
     class Meta:
         verbose_name = "Event"
         verbose_name_plural = "Events"
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''    
+                
+        super(Event, self).save(*args, **kwargs)
+        self.slug= slugify("{} {}".format(self.name,self.pk)) 
     
     def __str__(self):
         return str(self.name)

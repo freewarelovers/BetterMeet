@@ -25,8 +25,6 @@ class CommunitysMutation(DjangoModelFormMutation):
 
     @login_required
     def resolve_community( root, info, **kwargs):
-        print("a context ",  info.context.user)
-        print("this communty ",  root.community)
         return root.community
         
 
@@ -50,9 +48,6 @@ class Mutation(graphene.ObjectType):
     add_owner_to_community = CommunitysOwnersMutation.Field()
 
 
-    @login_required
-    def resolve_add_owner_to_community(self, root, info, **kwargs):
-        pass
   
 
 
@@ -60,8 +55,17 @@ class Mutation(graphene.ObjectType):
 class Query(graphene.ObjectType):
     all_communitys = graphene.List(CommunityType)
     get_communitys_by_id = graphene.List(CommunityType, id=graphene.Int())
-    all_communitysOwners = graphene.List(CommunityOwnerType)
+    all_communitys_owners = graphene.List(CommunityOwnerType)
 
+    @login_required
+    def resolve_all_communitys(root, info):
+        return Community.objects.all()
+    
+    @login_required
+    def resolve_all_communitys_owners(root, info):
+        return CommunityOwner.objects.all()
+
+    @login_required
     def resolve_get_communitys_by_id(root, info, id):
         return Community.objects.filter(id=id)
     
