@@ -24,7 +24,7 @@ class CommunitysMutation(DjangoModelFormMutation):
     community =  graphene.Field(CommunityType)
 
     @login_required
-    def resolve_community( root, info, **kwargs):
+    def resolve_community(root, info, **kwargs):
         return root.community
         
 
