@@ -9,6 +9,19 @@ export const CREATE_EVENT = gql`mutation  addEvent($name:String!,   $eventCreato
                         description:$description, position:$position, startAt:$startAt}
                     ){
                         errors{field, messages},
-                        event{name,slug,position, eventCreator{community{slug}}}
+                        event{name,slug,position}
                     }
 }`
+
+export const ALL_EVENTS = gql`query{
+    allEvents{
+    id,
+      name,
+      eventCreator{owner{email}, community{name}}
+      slug,
+      description,
+      position,
+      startAt
+      
+    }
+  }`

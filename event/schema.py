@@ -9,12 +9,14 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 class EventType(DjangoObjectType):
     class Meta:
         model = Event
-        fields = ['name', 'slug', 'event_creator', 'description', 'position', 'start_at']
+        fields = ['id','name', 'slug', 'event_creator', 'description', 'position', 'start_at']
 
 
 class Query(graphene.ObjectType):
     all_events = graphene.List(EventType)
 
+    def resolve_all_events(root, info):
+        return Event.objects.all()
 
 class EventsMutation(DjangoModelFormMutation):
     event =  graphene.Field(EventType)
