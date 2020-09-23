@@ -1,7 +1,7 @@
 import React from "react"
 
 
-export default function Event(){
+export default function EventPage(){
 
     return(
         <>

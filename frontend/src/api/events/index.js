@@ -1,13 +1,14 @@
 import { gql } from 'apollo-boost';
 
 
-export const CREATE_EVENT = gql`mutation addCommunityEvent($name:String!,   $eventCreator:ID!,
+export const CREATE_EVENT = gql`mutation  addEvent($name:String!,   $eventCreator:ID!,
     $description: String!, $position:String!, $startAt:Date!){
-        addCommunityEvent(
+        addEvent(
                         input : {
                         name:$name, eventCreator:$eventCreator, 
                         description:$description, position:$position, startAt:$startAt}
                     ){
-                        errors{field, messages}
+                        errors{field, messages},
+                        event{name,slug,position, eventCreator{community{slug}}}
                     }
 }`

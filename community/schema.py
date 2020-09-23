@@ -46,7 +46,7 @@ class CommunitysOwnersMutation(DjangoModelFormMutation):
 class Mutation(graphene.ObjectType):
     add_community = CommunitysMutation.Field()
     add_owner_to_community = CommunitysOwnersMutation.Field()
-
+    
 
   
 

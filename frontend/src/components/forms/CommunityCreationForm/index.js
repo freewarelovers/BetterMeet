@@ -54,7 +54,7 @@ export default function CreateCommunityForm(){
                                      }}
                                 ).then(data=>{
                                     if(data.data.addOwnerToCommunity.errors.length<1){
-                                        history.push(`community/${slug}`)
+                                        history.push(`communitys/${slug}`)
                                     }
                                 }
 

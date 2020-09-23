@@ -1,5 +1,8 @@
 import React,{useState} from "react"
+
 import {CreateEventSchema} from "./schema/index"
+
+import {useHistory, useRouteMatch } from "react-router-dom"
 
 import {CREATE_EVENT} from "../../../api/events/index"
 import moment from "moment"
@@ -18,6 +21,8 @@ export default function EventCreationForm(){
     const eventCreator = 1
     const [createEvent, { data,loading, error}  ] = useMutation(CREATE_EVENT)
     const [date , setDate] = useState( new Date() )
+    const history = useHistory();
+    const match  = useRouteMatch()
 
     if (error)  console.log(error)
     if (loading) return (<p>{loading}</p>)
@@ -25,9 +30,9 @@ export default function EventCreationForm(){
         <>
         { data ?
             (<>
-                <RegistrationErrorHandler  data={data.addCommunityEvent}  error_field="messages" />
+                <RegistrationErrorHandler  data={data.addEvent}  error_field="messages" />
                 <RegistrationSuccessHandler 
-                    data={data.addCommunityEvent}   
+                    data={data.addEvent}   
                     message='Event created successfuly you will be redirected soon'                     
                 />                                            
             </>)
@@ -43,7 +48,7 @@ export default function EventCreationForm(){
             validationSchema={CreateEventSchema}
             onSubmit ={ async values =>{
                 await new Promise(
-                    console.log(createEvent(
+                    createEvent(
                         {variables : {
                             name : values.name,
                             eventCreator : eventCreator,
@@ -51,7 +56,13 @@ export default function EventCreationForm(){
                             position : values.position,
                             startAt :moment(values.startAt).format("YYYY-MM-DD") 
                         }}
-                    ))
+                    ).then(data=>{
+                        if(data.data.addEvent.errors.length < 1){
+                            let event_slug = data.data.addEvent.event.slug
+                            let community_slug = match.params.slug
+                            history.push(`communitys/${community_slug}/events/${event_slug}`)
+                        }
+                    })
                 )
             }}>
              {({ errors, touched,setFieldValue}) => (

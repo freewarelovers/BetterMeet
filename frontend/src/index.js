@@ -17,6 +17,7 @@ import Signin from "./pages/registration/signin/index"
 import Dashboard from "./pages/events/dashboard/index"
 import CreateCommunity from "./pages/groups/create_community/index"
 import CommunityPage from "./pages/groups/community_page/index"
+import EventPage from "./pages/events/event/index"
 import './index.css';
 
 
@@ -34,7 +35,9 @@ ReactDOM.render(
       <Route  path="/dashboard/:name" component={Dashboard} />
       
       <Route exact   path="/create-community" component={CreateCommunity} />
-      <Route exact   path="/community/:pk" component={CommunityPage} />
+      <Route exact   path="/communitys/:slug" component={CommunityPage} />
+      <Route exact   path="/communitys/:slug/events/:slug" component={EventPage} />
+      <Route exact   path="/events/:id" component={EventPage} />
      
       </Switch>     
     </Router>

@@ -16,7 +16,7 @@ class AuthMutation(graphene.ObjectType):
     verify_token = mutations.VerifyToken.Field()
     update_account = mutations.UpdateAccount.Field()
 
-class Query(UserQuery,CommunityQuery, EventQuery,graphene.ObjectType):
+class Query(UserQuery,CommunityQuery, EventQuery, graphene.ObjectType):
    pass
 class Mutation(AuthMutation,UserMutation,CommunityMutation,EventMutation,graphene.ObjectType):
     pass
