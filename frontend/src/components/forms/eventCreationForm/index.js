@@ -28,7 +28,7 @@ export default function EventCreationForm(){
                 <RegistrationErrorHandler  data={data.addCommunityEvent}  error_field="messages" />
                 <RegistrationSuccessHandler 
                     data={data.addCommunityEvent}   
-                    message='event created successfuly you will be redirected soon'                     
+                    message='Event created successfuly you will be redirected soon'                     
                 />                                            
             </>)
             :   undefined}

@@ -5,6 +5,6 @@ from .models import  Event
 class EventAdmin(admin.ModelAdmin):
     model =Event
     fieldsets  = [
-        ("General info", {'fields': ['name', 'event_creator', 'postion']}),
+        ("General info", {'fields': ['name', 'event_creator', 'position']}),
         ("Date and time info", {"fields" : ['start_at']})
         ]
