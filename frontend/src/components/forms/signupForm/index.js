@@ -2,7 +2,12 @@ import React from "react"
 import {useMutation } from 'react-apollo';
 
 import {SignupSchema} from "./schema/index"
-import { Formik, Form, Field} from 'formik'
+import { useFormik} from 'formik'
+import {
+    Button,
+    Form,
+    FormField as Field,
+  } from 'grommet';
 
 import {CREATE_USER} from "../../../api/signup/index"
 
@@ -12,10 +17,31 @@ import {RegistrationSuccessHandler} from '../../../utils/handlers/success/index'
 // lets use this link later when we want handle errors
 //import { onError } from 'apollo-link-error';
 
-function SignupForm (){
+function SignupForm (props){
  
     const [createUser, { data,error,loading }  ] = useMutation(CREATE_USER)
+   const formik  =useFormik({
 
+        initialValues: {
+                    firstName: "",
+                    lastName: "",
+                    email : "",
+                    password1 : "",
+                    password2 : "",
+        },
+        validationSchema: SignupSchema,
+        onSubmit :  async values => { await new Promise( 
+
+        createUser(
+                    { variables: {
+                        first_name: values.firstName,
+                        last_name: values.lastName,
+                        email : values.email,
+                        password1 : values.password1,
+                        password2 : values.password2,
+                    }}
+                ))
+            }})
 
         if (error) return (
         <>{console.log("this is an error",error)}</>)
@@ -46,45 +72,20 @@ function SignupForm (){
                                            
                 )
                    
-                :   undefined }
+                :   undefined }                
                 
                 
-                
-               
-                <Formik
-                initialValues={{
-                        firstName: "",
-                        lastName: "",
-                        email : "",
-                        password1 : "",
-                        password2 : "",
-                }}
-                validationSchema={SignupSchema}
-                onSubmit ={ async values => { await new Promise( 
-
-                    createUser(
-                                { variables: {
-                                    first_name: values.firstName,
-                                    last_name: values.lastName,
-                                    email : values.email,
-                                    password1 : values.password1,
-                                    password2 : values.password2,
-                                }}
-                            ))
-                          }}
-                    >
-                    {({ errors, touched }) => (
-                    <Form>
+                    <Form  onSubmit={formik.handleSubmit}>
 
                     <label htmlFor="firstName">First Name</label>
                     <Field id="firstName" name="firstName" placeholder="Jane" />
-                    {errors.firstName && touched.firstName ?
-                    (<div>{errors.firstName}</div>) : null}
+                    {formik.errors.firstName && formik.touched.firstName ?
+                    (<div>{formik.errors.firstName}</div>) : null}
 
                     <label htmlFor="lastName">Last Name</label>
                     <Field id="lastName" name="lastName" placeholder="Doe" />
-                    {errors.lastName && touched.lastName ?
-                    (<div>{errors.lastName}</div>) : null}
+                    {formik.errors.lastName && formik.touched.lastName ?
+                    (<div>{formik.errors.lastName}</div>) : null}
 
                     <label htmlFor="email">Email</label>
                     <Field
@@ -93,8 +94,8 @@ function SignupForm (){
                     placeholder="example@example.com"
                     type="email"
                     />
-                    {errors.email && touched.email ?
-                    (<div>{errors.email}</div>) : null}
+                    {formik.errors.email && formik.touched.email ?
+                    (<div>{formik.errors.email}</div>) : null}
 
                     <label htmlFor="password1">Password</label>
                     <Field
@@ -103,8 +104,8 @@ function SignupForm (){
                     placeholder="password"
                     type="password"
                     />
-                    {errors.password1 && touched.password1 ?
-                    (<div>{errors.password1}</div>) : null}
+                    {formik.errors.password1 && formik.touched.password1 ?
+                    (<div>{formik.errors.password1}</div>) : null}
 
                     <label htmlFor="password2">Password Confirmation</label>
                     <Field
@@ -113,13 +114,15 @@ function SignupForm (){
                     placeholder="password confirmation"
                     type="password"
                     />
-                    {errors.password2 && touched.password2 ?
-                    (<div>{errors.password2}</div>) : null}
-                    <button type="submit">Submit</button>
+                    {formik.errors.password2 && formik.touched.password2 ?
+                    (<div>{formik.errors.password2}</div>) : null}
+
+                     <Button primary label="Primary" onClick={() => {}}
+                        {...props} type="submit">Submit</Button>
                     
-                    </Form>)}
+                    </Form>
                    
-                </Formik>
+            
             </>
         )
     

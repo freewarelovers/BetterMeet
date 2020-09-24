@@ -11,6 +11,7 @@
     "apollo-link-context": "^1.0.20",
     "formik": "^2.1.5",
     "graphql": "^15.3.0",
+    "grommet": "^2.15.0",
     "jwt-decode": "^3.0.0-beta.2",
     "moment": "^2.29.0",
     "react": "^16.13.1",
@@ -19,6 +20,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
+    "styled-components": "^5.2.0",
     "yup": "^0.29.3"
   },
   "scripts": {

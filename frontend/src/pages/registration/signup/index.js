@@ -1,20 +1,35 @@
 import React from "react"
 import SignupForm from "../../../components/forms/signupForm/index"
 import {Link} from "react-router-dom"
+import { grommet } from 'grommet/themes';
+import {
+    Box,
+    Grommet,
+    Heading
+    ,Header 
+  } from 'grommet';
 function Signup (){
   
         return(
-            <div>
+            <>
+                <Grommet theme={grommet}>
 
-                <header>
-                    <h1>Signup</h1>
-                </header> 
+                    <Box fill align="center" justify="center">
+                    <Box width="medium">
+                    <Header  pad="small">
+                    <Heading level={2} size="medium">
+                        Signup
+                    </Heading>
+                    </Header> 
 
-                <SignupForm />
+                    <SignupForm />
 
-                <Link to="/signin/">Already have an account create a one here</Link>
+                    <Link to="/signin/">Already have an account create a one here</Link>
+                    </Box>
+                    </Box>
+                </Grommet>
 
-            </div>
+            </>
         )
 
 }
