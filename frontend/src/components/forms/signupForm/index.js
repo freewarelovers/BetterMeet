@@ -50,7 +50,7 @@ function SignupForm (props){
         if(data){
             if(data.addMember.customUser){
                 return <Redirect 
-                to={{pathname:"signin" ,
+                to={{pathname:"/signin" ,
                 state:{ message:'User created successfuly you can login now'}}}/>
             }
         }
@@ -78,12 +78,12 @@ function SignupForm (props){
                     <Form  onSubmit={formik.handleSubmit}>
 
                     <label htmlFor="firstName">First Name</label>
-                    <Field id="firstName" name="firstName" placeholder="Jane" />
+                    <Field id="firstName" name="firstName" placeholder="Jane"  onChange={formik.handleChange} />
                     {formik.errors.firstName && formik.touched.firstName ?
                     (<div>{formik.errors.firstName}</div>) : null}
 
                     <label htmlFor="lastName">Last Name</label>
-                    <Field id="lastName" name="lastName" placeholder="Doe" />
+                    <Field id="lastName" name="lastName" placeholder="Doe"  onChange={formik.handleChange} />
                     {formik.errors.lastName && formik.touched.lastName ?
                     (<div>{formik.errors.lastName}</div>) : null}
 
@@ -93,6 +93,7 @@ function SignupForm (props){
                     name="email"
                     placeholder="example@example.com"
                     type="email"
+                    onChange={formik.handleChange}
                     />
                     {formik.errors.email && formik.touched.email ?
                     (<div>{formik.errors.email}</div>) : null}
@@ -103,6 +104,7 @@ function SignupForm (props){
                     name="password1"
                     placeholder="password"
                     type="password"
+                    onChange={formik.handleChange}
                     />
                     {formik.errors.password1 && formik.touched.password1 ?
                     (<div>{formik.errors.password1}</div>) : null}
@@ -113,12 +115,13 @@ function SignupForm (props){
                     name="password2"
                     placeholder="password confirmation"
                     type="password"
+                    onChange={formik.handleChange}
                     />
                     {formik.errors.password2 && formik.touched.password2 ?
                     (<div>{formik.errors.password2}</div>) : null}
 
-                     <Button primary label="Primary" onClick={() => {}}
-                        {...props} type="submit">Submit</Button>
+                     <Button primary label="Submit" 
+                        type="submit"></Button>
                     
                     </Form>
                    

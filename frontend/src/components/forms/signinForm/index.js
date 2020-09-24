@@ -83,7 +83,7 @@ function SigninForm (){
                     name="email"
                     placeholder="example@example.com"
                     type="email"
-                    value={formik.values.email}
+                    onChange={formik.handleChange}
                     />
                     {formik.errors.email && formik.touched.email ?
                     (<div>{formik.errors.email}</div>) : null}
@@ -94,7 +94,8 @@ function SigninForm (){
                     name="password"
                     placeholder="password"
                     type="password"
-                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                   
                     />
                     {formik.errors.password && formik.touched.password ?
                     (<div>{formik.errors.password}</div>) : null}
