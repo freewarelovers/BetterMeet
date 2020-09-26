@@ -32,7 +32,7 @@ function SignupForm (props){
         validationSchema: SignupSchema,
         onSubmit :  async values => { await new Promise( 
 
-        createUser(
+        console.log(createUser(
                     { variables: {
                         first_name: values.firstName,
                         last_name: values.lastName,
@@ -40,18 +40,24 @@ function SignupForm (props){
                         password1 : values.password1,
                         password2 : values.password2,
                     }}
-                ))
+                ).then(data=>{
+                    if(data.data.register.success){
+                        localStorage.setItem("jwt", data.data.register.token)
+                        localStorage.setItem("jwt_refresh", data.data.register.refreshToken)
+                    }
+                    
+                }))
+                )
             }})
 
-        if (error) return (
-        <>{console.log("this is an error",error)}</>)
+        if (error) return (<>{console.log("this is an error",error)}</>)
         if (loading) return (<p>{console.log("this is a loading",loading)}</p>)
 
         if(data){
-            if(data.addMember.customUser){
+            if(data.register.success){
                 return <Redirect 
-                to={{pathname:"/signin" ,
-                state:{ message:'User created successfuly you can login now'}}}/>
+                to={{pathname:"/dashboard/me" ,
+                state:{ message:'User created successfuly'}}}/>
             }
         }
         
