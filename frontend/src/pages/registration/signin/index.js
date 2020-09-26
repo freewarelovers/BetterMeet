@@ -1,19 +1,19 @@
 import React from "react"
 import SigninForm from "../../../components/forms/signinForm/index"
 import {Link} from "react-router-dom"
-import { grommet } from 'grommet/themes';
+
 import {
     Box,
-    Grommet,
     Heading,
-    Header
+    Header,
+    Anchor,
   } from 'grommet';
 function Signin (){
      
-        return(             
-            <Grommet theme={grommet}>
+        return(            
+        
 
-             <Box fill align="center" justify="center">
+             <Box fill align="center"  pad="small" justify="center">
                 <Box width="medium">
                 <Header  pad="small">
                     <Heading level={2} size="medium">
@@ -22,11 +22,10 @@ function Signin (){
                 </Header>  
 
                 <SigninForm />
-
-                <Link to="signup/">Create new account</Link>
+                <Anchor color="dark-1"   to="signup/">Create new account</Anchor>
                 </Box>
-                </Box>
-            </Grommet>
+            </Box>
+        
         )
       
 

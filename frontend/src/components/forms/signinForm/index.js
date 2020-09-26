@@ -100,7 +100,13 @@ function SigninForm (){
                     {formik.errors.password && formik.touched.password ?
                     (<div>{formik.errors.password}</div>) : null}
                 
-                    <Button primary  label="Submit" onClick={formik.handleSubmit} type="submit"></Button>
+                    <Button 
+                        primary  
+                        color="dark-1" 
+                        label="Submit"
+                        onClick={formik.handleSubmit} 
+                        type="submit">                        
+                    </Button>
                     
                     </Form>
                     

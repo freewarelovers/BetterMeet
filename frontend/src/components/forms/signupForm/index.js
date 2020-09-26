@@ -126,8 +126,13 @@ function SignupForm (props){
                     {formik.errors.password2 && formik.touched.password2 ?
                     (<div>{formik.errors.password2}</div>) : null}
 
-                     <Button primary label="Submit" 
-                        type="submit"></Button>
+                    <Button 
+                        primary 
+                        label="Submit" 
+                        type="submit"
+                        color="dark-1" 
+                        >                        
+                    </Button>
                     
                     </Form>
                    

@@ -19,14 +19,15 @@ import CreateCommunity from "./pages/groups/create_community/index"
 import CommunityPage from "./pages/groups/community_page/index"
 import EventPage from "./pages/events/event/index"
 import './index.css';
-
-
+import {  Grommet } from 'grommet';
+import { grommet } from 'grommet/themes';
 ReactDOM.render(
   <React.StrictMode>
   <ApolloProvider client={apolloClient}>
     <Router>
+    <Grommet theme={grommet}>
     <Switch>
-       
+      
       <Route exact path="/" component={Home} />
      
       <Route exact path="/signup" component={Signup} />
@@ -39,7 +40,8 @@ ReactDOM.render(
       <Route exact   path="/communitys/:slug/events/:slug" component={EventPage} />
       <Route exact   path="/events/:id" component={EventPage} />
      
-      </Switch>     
+      </Switch>
+      </Grommet>     
     </Router>
     </ApolloProvider>    
   </React.StrictMode>,

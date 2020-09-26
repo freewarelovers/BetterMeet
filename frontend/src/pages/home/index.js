@@ -1,7 +1,7 @@
 import React  from "react"
 
-import { Heading, Anchor, Grommet, Header, Nav, Main, Box } from 'grommet';
-import { grommet } from 'grommet/themes';
+import { Heading, Anchor,  Header, Nav, Main, Box } from 'grommet';
+
 
 const items = [
     { label: 'Login', href: '/signin' },
@@ -12,7 +12,7 @@ function Home (){
 
         return(        
             <>
-            <Grommet theme={grommet}>
+            
                 <Header background="dark-1" pad="small">
                 <Nav direction="row">
                     {items.map(item => (
@@ -36,8 +36,7 @@ function Home (){
                     An open community platform  
                     </Heading>
                   </Box>     
-                </Main>
-            </Grommet>            
+                </Main>           
          
             </>
             ) 
