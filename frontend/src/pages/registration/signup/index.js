@@ -1,6 +1,6 @@
 import React from "react"
 import SignupForm from "../../../components/forms/signupForm/index"
-import {Link} from "react-router-dom"
+
 
 import {
     Box,
