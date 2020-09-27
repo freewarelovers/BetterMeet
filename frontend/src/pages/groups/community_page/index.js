@@ -4,7 +4,8 @@ import {useRouteMatch} from "react-router-dom"
 import  EventCreationForm from "../../../components/forms/eventCreationForm/index"
 import {GET_CURRENT_COMMUNITY_BY_SLUG} from "../../../api/communitys/index"
 import {useQuery} from 'react-apollo';
-import { Heading , Anchor,  Header, Nav, Main, Box } from 'grommet';
+import { Heading , Text, Anchor,  Header, Nav, Main, Box } from 'grommet';
+import { UserManager  } from 'grommet-icons';
 const items = [
     { label: 'go back to dashboard', href: '/dashboard/me' },
     { label: 'Logout ', href: '/logout' },
@@ -40,19 +41,26 @@ export default function CommunityPage (){
                             background={{
                                 color: '#CDEAC4',
                             }}
-                            pad={{ left: 'medium', bottom: 'small' }}
-                            size="large"
+                            pad={{  bottom: 'medium' }}
+                            direction="column"
+                            
                             fill
                         >
-                        
+                         
+                       
                             <Heading 
-                            level={1}  
-                            justify="end" 
-                            align="center"
+                            level={1}                                                   
                             color="white" 
-                            size="large">
+                            size="large"
+                            width="100vw"
+                            >
                                 {data  ? data.getCommunitysBySlug.community.name : undefined}
+                
                             </Heading>
+                           
+                           <Text>Owner : {data.getCommunitysBySlug.owner.firstName} {data.getCommunitysBySlug.owner.lastName}</Text>
+                           <Text>createdAt : {data.getCommunitysBySlug.community.createdAt} </Text>
+                                                    
 
                         </Header> 
                     <Box width="medium">                               
