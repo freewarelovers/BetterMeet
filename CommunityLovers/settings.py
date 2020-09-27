@@ -110,7 +110,22 @@ GRAPHQL_JWT = {
         "graphql_auth.mutations.VerifyAccount",
         "graphql_auth.mutations.ObtainJSONWebToken",
         "graphql_auth.mutations.VerifyToken",
+        
     ],
+
+   
+}
+GRAPHQL_AUTH = {
+    'LOGIN_ALLOWED_FIELDS': ['email'],
+
+     'REGISTER_MUTATION_FIELDS' : {
+        "email": "String",
+        "first_name" : "String",
+        "last_name":  "String",
+        "password1": "String",
+        "password2": "String",
+    }
+
 }
 
 WSGI_APPLICATION = 'CommunityLovers.wsgi.application'

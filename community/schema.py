@@ -55,6 +55,7 @@ class Mutation(graphene.ObjectType):
 class Query(graphene.ObjectType):
     all_communitys = graphene.List(CommunityType)
     get_communitys_by_id = graphene.List(CommunityType, id=graphene.Int())
+    get_communitys_by_slug = graphene.Field(CommunityOwnerType, slug=graphene.String())
     all_communitys_owners = graphene.List(CommunityOwnerType)
 
     @login_required
@@ -69,3 +70,6 @@ class Query(graphene.ObjectType):
     def resolve_get_communitys_by_id(root, info, id):
         return Community.objects.filter(id=id)
     
+    @login_required
+    def resolve_get_communitys_by_slug(root, info, slug):
+        return CommunityOwner.objects.get(community__slug=slug)

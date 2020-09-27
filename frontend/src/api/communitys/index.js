@@ -7,11 +7,18 @@ export const CREATE_COMMUNITY = gql`mutation addCommunity($name:String!){
     }
 }`
 
-//export const GET_CURRENT_COMMUNITY = gql``
+
 export const CREATE_COMMUNITY_OWNER = gql`mutation addOwnerToCommunity($owner:ID!, $community:ID!){
     addOwnerToCommunity(input : {owner : $owner, community: $community}){
         communityOwner{id},
         errors{field,messages}
     }
 
+}`
+
+export const GET_CURRENT_COMMUNITY_BY_SLUG = gql`query   getCommunitysBySlug($slug:String){
+    getCommunitysBySlug(slug : $slug){
+        owner{dateJoined,username,firstName,lastName},
+        community{name,slug,createdAt}
+    }
 }`
