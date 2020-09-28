@@ -14,16 +14,19 @@ class EventType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     all_events = graphene.List(EventType)
-
+    get_community_events_by_slug = graphene.List(EventType, slug=graphene.String())
     def resolve_all_events(root, info):
         return Event.objects.all()
+    def resolve_community_events_by_slug(root, info , slug):
+        return Event.objects.filter(event_creator__community__slug=slug)
+
 
 class EventsMutation(DjangoModelFormMutation):
     event =  graphene.Field(EventType)
 
     @login_required
     def resolve_event(root, info, **kwargs):
-        print("heeeellloo ", info.context.user)
+        print(root.event)
         return root.event
 
     class Meta:

@@ -1,9 +1,10 @@
 import React,  {useState} from "react"
-import {CREATE_COMMUNITY,CREATE_COMMUNITY_OWNER} from "../../../api/communitys/index"
+import {CREATE_COMMUNITY, CREATE_COMMUNITY_OWNER} from "../../../api/communitys/index"
+import { GET_CURRENT_USER} from "../../../api/users/index"
 import {  RegistrationErrorHandler} from '../../../utils/handlers/errors/index'
 import { RegistrationSuccessHandler} from '../../../utils/handlers/success/index'
 
-import {useMutation } from 'react-apollo';
+import {useMutation, useQuery } from 'react-apollo';
 import {CreateGroupSchema} from "./schema/index"
 import {useHistory } from "react-router-dom"
 import { useFormik  } from 'formik'
@@ -14,13 +15,12 @@ import {
     FormField as Field,
   } from 'grommet';
 
-export default function CreateCommunityForm(){
+export default function CreateCommunityForm(props){
     const history = useHistory();
   
 
     const [user_id]=  useState(localStorage.getItem('user_id'))
-
-
+   
     const [createCommunity, { data,loading, error}  ] = useMutation(CREATE_COMMUNITY)
     const [createCommunityOwner] = useMutation(CREATE_COMMUNITY_OWNER)
     
@@ -58,8 +58,10 @@ export default function CreateCommunityForm(){
     })
      
     if (error)  console.log(error)
-    if (loading) return (<p>{loading}</p>)
-   
+    if (loading || owner_loading) return (<p>{loading}</p>)
+    
+    console.log(owner_data.getCurrentMember.id)
+    console.log(owner_error)
     return (
         <>
         { data ?

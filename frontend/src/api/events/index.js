@@ -25,3 +25,15 @@ export const ALL_EVENTS = gql`query{
       
     }
   }`
+
+
+export const GET_COMMUNITY_EVENTS_BY_SLUG = gql`query getCommunityEventsBySlug($slug:String!){
+  getCommunityEventsBySlug(slug:$slug){
+    id,
+    name,
+    slug,
+    description,
+    position,
+    startAt,
+  }
+}`

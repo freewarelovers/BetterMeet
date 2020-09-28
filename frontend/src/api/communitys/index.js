@@ -22,3 +22,12 @@ export const GET_CURRENT_COMMUNITY_BY_SLUG = gql`query   getCommunitysBySlug($sl
         community{name,slug,createdAt}
     }
 }`
+
+
+export const GET_CURRENT_COMMUNITY_OWNER  = gql`query{
+    getCurrentCommunityOwner{
+     id,
+   }
+  
+ }`
+  
