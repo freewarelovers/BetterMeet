@@ -17,8 +17,8 @@ import { Field, Form, Formik } from "formik"
 
 import "react-datepicker/dist/react-datepicker.css"
 
-export default function EventCreationForm(){
-    //const [user_id]=  useState(localStorage.getItem('user_id'))
+export default function EventCreationForm(props){
+    const [user_id]=  useState(props.current_user)
     const [createEvent, { data,loading, error}  ] = useMutation(CREATE_EVENT)
     const [date , setDate] = useState( new Date() )
     const history = useHistory();
@@ -51,7 +51,7 @@ export default function EventCreationForm(){
                     createEvent(
                         {variables : {
                             name : values.name,
-                            eventCreator : 76,
+                            eventCreator : user_id,
                             description : values.description,
                             position : values.position,
                             startAt :moment(values.startAt).format("YYYY-MM-DD") 

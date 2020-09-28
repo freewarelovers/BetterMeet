@@ -1,14 +1,14 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from base.models import CustomUser
+from community.models import CommunityOwner
 
 from django.utils.text import slugify
 # Create your models here.
 class Event(models.Model):
     name = models.CharField(_('event name'),max_length=500 )
     slug = models.SlugField(_('event slug'))
-    event_creator  = models.ForeignKey(CustomUser, verbose_name=_('event creator'),null=True, blank=False, on_delete=models.CASCADE)
+    event_creator  = models.ForeignKey(CommunityOwner, verbose_name=_('event creator'),null=True, blank=False, on_delete=models.CASCADE)
     description = models.TextField(max_length=300, null=True, blank=False)    
     position = models.CharField('event place,  city',max_length=200)
     start_at = models.DateField(_('event starting date'))
