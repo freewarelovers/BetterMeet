@@ -32,7 +32,7 @@ export const GET_CURRENT_COMMUNITY_OWNER  = gql`query{
   
  }`
 
-export const GET_CURRENT_USER_COMMUNITY = gql`query{
+export const GET_CURRENT_USER_COMMUNITYS = gql`query{
     getCurrentUserCommunitys{
       community{name,slug}
     }

@@ -1,11 +1,11 @@
 import React  from "react"
 
 import {useQuery} from  "react-apollo"
-
+import {Drop} from "../../../components/lists/drop/index"
 import { ALL_EVENTS } from "../../../api/events/index"
-import { GET_CURRENT_USER_COMMUNITY } from "../../../api/communitys/index"
+import { GET_CURRENT_USER_COMMUNITYS } from "../../../api/communitys/index"
 
-import { Heading, Text, List , Anchor,  Header, Nav, Main, Box } from 'grommet';
+import { Heading, Text, List , Anchor,  Header, Nav, Main, Box, DropButton } from 'grommet';
 
 import { useHistory } from "react-router-dom";
 const items = [
@@ -17,14 +17,24 @@ const items = [
 function  Dashboard (){
    
     const { loading, error, data } = useQuery(ALL_EVENTS);
-    console.log("get current user ",useQuery(GET_CURRENT_USER_COMMUNITY))
-    
+   const {data:currentuser_data, loading:currentuser_loading} =useQuery(GET_CURRENT_USER_COMMUNITYS)
+   const [open, setOpen] = React.useState();
+   let history = useHistory()
 
-    let history = useHistory()
+   const onOpen = () => {
+     setOpen(true);
+   };
+   const onClose = () => {
+     setOpen(false);
+   };
+
+   if(currentuser_data) console.log("currentuser ", currentuser_data)
+
+   
     
-    if(data) console.log(data)
+    if(data ) console.log(data)
     
-    if (loading) return <div>Loading</div>
+    if (loading || currentuser_loading ) return <div>Loading</div>
     
     if(error) console.log(error)
     
@@ -36,6 +46,16 @@ function  Dashboard (){
                     {items.map(item => (
                     <Anchor href={item.href} label={item.label} key={item.label} />
                     ))}
+                    {currentuser_data ?
+                    <DropButton
+                        label="Options"
+                        open={open}
+                        onOpen={onOpen}
+                        onClose={onClose}
+                        dropContent={<Drop data={currentuser_data.getCurrentUserCommunitys} header={"Communitys"} />}
+                        dropProps={{ align: { top: 'bottom' } }}
+                    />
+                    : undefined}
                 </Nav>
             </Header>
             <Main >
