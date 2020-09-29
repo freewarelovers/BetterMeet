@@ -58,9 +58,9 @@ export default function EventCreationForm(props){
                         }}
                     ).then(data=>{
                         if(data.data.addEvent.errors.length < 1){
-                            let event_slug = data.data.addEvent.event.slug
+                            let event_id= data.data.addEvent.event.id
                             let community_slug = match.params.slug
-                            history.push(`communitys/${community_slug}/events/${event_slug}`)
+                            history.push(`/communities/${community_slug}/events/${event_id}`)
                         }
                     })
                 )

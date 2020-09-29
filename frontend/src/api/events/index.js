@@ -9,7 +9,7 @@ export const CREATE_EVENT = gql`mutation  addEvent($name:String!,   $eventCreato
                         description:$description, position:$position, startAt:$startAt}
                     ){
                         errors{field, messages},
-                        event{name,slug,position}
+                        event{id,name,slug,position}
                     }
 }`
 

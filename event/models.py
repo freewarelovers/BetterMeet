@@ -20,9 +20,9 @@ class Event(models.Model):
         verbose_name_plural = "Events"
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''    
-                
+        self.slug= slugify("{}".format(self.name)) 
         super(Event, self).save(*args, **kwargs)
-        self.slug= slugify("{} {}".format(self.name,self.pk)) 
+        
     
     def __str__(self):
         return str(self.name)

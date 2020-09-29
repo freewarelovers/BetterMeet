@@ -17,7 +17,8 @@ class Query(graphene.ObjectType):
     get_community_events_by_slug = graphene.List(EventType, slug=graphene.String())
     def resolve_all_events(root, info):
         return Event.objects.all()
-    def resolve_community_events_by_slug(root, info , slug):
+    def resolve_get_community_events_by_slug(root, info , slug):
+        print("events  ", Event.objects.filter(event_creator__community__slug="eazeaze-mtgewkl3sgllwqkvssqk7k"))
         return Event.objects.filter(event_creator__community__slug=slug)
 
 

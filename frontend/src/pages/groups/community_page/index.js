@@ -78,8 +78,14 @@ export default function CommunityPage (){
                             <Tab title="Members">
                                 <Box pad="medium">Two</Box>
                             </Tab>
+
+                            <Tab title="add Events">
+                                <Box pad="medium">
+                                    <EventCreationForm  current_user={data.getCommunitysBySlug.id}/>
+                                </Box>
+                            </Tab>
                         </Tabs>                           
-                        <EventCreationForm  current_user={data.getCommunitysBySlug.id}/>
+                        
                     </Box>
                 </Box>
             </Main >

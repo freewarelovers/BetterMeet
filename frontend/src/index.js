@@ -36,8 +36,8 @@ ReactDOM.render(
       <Route  path="/dashboard/:name" component={Dashboard} />
       
       <Route exact   path="/create-community" component={CreateCommunity} />
-      <Route exact   path="/communitys/:slug" component={CommunityPage} />
-      <Route exact   path="/communitys/:slug/events/:slug" component={EventPage} />
+      <Route exact   path="/communities/:slug" component={CommunityPage} />
+      <Route exact   path="/communities/:slug/events/:slug" component={EventPage} />
       <Route exact   path="/events/:id" component={EventPage} />
      
       </Switch>

@@ -9,21 +9,24 @@ export default function CommunityEventsList(props){
     
     const location = useRouteMatch();
     const history = useHistory()
-
+    console.log(useQuery(GET_COMMUNITY_EVENTS_BY_SLUG,{
+        variables : { slug: location.params.slug }
+    }))
     const {data, loading , error}= useQuery(GET_COMMUNITY_EVENTS_BY_SLUG,{
         variables : { slug: location.params.slug }
     })
+
     if (error) console.log(error)
     if (loading) return <div>Loading</div>
     return(
         <>
         {data ? 
             (
-                <List data={data.allEvents} >
+                <List data={data.getCommunityEventsBySlug} >
                     {  
                     (element)=>(     
                         <Box  key={element.id}  onClick={event=>
-                            (history.push(`/communitys/${props.community_slug}/events/:slug`))
+                            (history.push(`/communities/${props.community_slug}/events/${element.id}`))
                         } 
                         fill>
                                 <Heading level="4" >{element.name}</Heading>
