@@ -18,7 +18,6 @@ class Query(graphene.ObjectType):
     def resolve_all_events(root, info):
         return Event.objects.all()
     def resolve_get_community_events_by_slug(root, info , slug):
-        print("events  ", Event.objects.filter(event_creator__community__slug="eazeaze-mtgewkl3sgllwqkvssqk7k"))
         return Event.objects.filter(event_creator__community__slug=slug)
 
 
@@ -27,7 +26,6 @@ class EventsMutation(DjangoModelFormMutation):
 
     @login_required
     def resolve_event(root, info, **kwargs):
-        print(root.event)
         return root.event
 
     class Meta:

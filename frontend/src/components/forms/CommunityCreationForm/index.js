@@ -46,6 +46,7 @@ export default function CreateCommunityForm(props){
                                     owner : user_id
                                  }}
                             ).then(data=>{
+                        
                                 if(data.data.addOwnerToCommunity.errors.length<1){
                                     history.push(`/communities/${slug}`)
                                 }

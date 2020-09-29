@@ -10,6 +10,7 @@ const items = [
 ];
 function CreateCommunity ()  {
     const { data,loading, error} = useQuery(GET_CURRENT_USER)
+    
     if(loading) return<div>loading...</div>
     if(error) console.log(error)
    
@@ -34,7 +35,7 @@ function CreateCommunity ()  {
                             A new Community
                             </Heading>
                         </Header>         
-                        <CreateCommunityForm current_user={data.getCurrentMember.id} /> 
+                        <CreateCommunityForm current_user={data.me.pk} /> 
                     </Box>
                 </Box>
             </Main >

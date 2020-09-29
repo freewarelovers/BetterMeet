@@ -58,7 +58,7 @@ class Query(graphene.ObjectType):
     get_communitys_by_slug = graphene.Field(CommunityOwnerType, slug=graphene.String())
     all_communitys_owners = graphene.List(CommunityOwnerType)
     get_current_community_owner = graphene.Field(CommunityOwnerType, slug=graphene.String())
-
+    get_current_user_communitys = graphene.List(CommunityOwnerType)
     @login_required
     def resolve_all_communitys(root, info):
         return Community.objects.all()
@@ -67,6 +67,11 @@ class Query(graphene.ObjectType):
     def resolve_all_communitys_owners(root, info):
         return CommunityOwner.objects.all()
     
+    @login_required
+    def resolve_get_current_user_communitys(root, info):
+        print(info.context.user.first_name)
+        print("current user", CommunityOwner.objects.filter(owner=info.context.user))
+        return CommunityOwner.objects.filter(owner__email=info.context.user)
     @login_required
     def resolve_get_current_community_owner_for_community(root, info, slug):
         print(info.context.user)

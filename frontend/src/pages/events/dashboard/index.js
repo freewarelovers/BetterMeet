@@ -3,6 +3,7 @@ import React  from "react"
 import {useQuery} from  "react-apollo"
 
 import { ALL_EVENTS } from "../../../api/events/index"
+import { GET_CURRENT_USER_COMMUNITY } from "../../../api/communitys/index"
 
 import { Heading, Text, List , Anchor,  Header, Nav, Main, Box } from 'grommet';
 
@@ -16,6 +17,9 @@ const items = [
 function  Dashboard (){
    
     const { loading, error, data } = useQuery(ALL_EVENTS);
+    console.log("get current user ",useQuery(GET_CURRENT_USER_COMMUNITY))
+    
+
     let history = useHistory()
     
     if(data) console.log(data)
