@@ -49,7 +49,7 @@ export default function EventCreationForm(props){
                 if(data.data.addEvent.errors.length < 1){
                     let event_id= data.data.addEvent.event.id
                     let community_slug = match.params.slug
-                    history.push(`/communities/${community_slug}/events/${event_id}`)
+                    history.push(`/communities/${community_slug}/event/${event_id}`)
                 }
             })
         )
@@ -118,12 +118,12 @@ export default function EventCreationForm(props){
                     (<div>{formik.errors.startAt}</div>) : null}
 
                     <Button 
-                            primary  
-                            color="dark-1" 
-                            label="Submit"
-                            onClick={formik.handleSubmit} 
-                            type="submit">                        
-                        </Button> 
+                        primary  
+                        color="dark-1" 
+                        label="Submit"
+                        onClick={formik.handleSubmit} 
+                        type="submit">                        
+                    </Button> 
                 </Form>
         </>
         

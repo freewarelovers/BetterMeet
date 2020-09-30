@@ -33,12 +33,16 @@ ReactDOM.render(
       <Route exact path="/signup" component={Signup} />
    
       <Route exact path="/signin" component={Signin} />
+
       <Route  path="/dashboard/:name" component={Dashboard} />
       
       <Route exact   path="/create-community" component={CreateCommunity} />
+
       <Route exact   path="/communities/:slug" component={CommunityPage} />
-      <Route exact   path="/communities/:slug/events/:slug" component={EventPage} />
-      <Route exact   path="/events/:id" component={EventPage} />
+
+      <Route path="/communities/:slug/event/:id" component={EventPage} />
+
+      <Route path="/event/:id" component={EventPage} />
      
       </Switch>
       </Grommet>     

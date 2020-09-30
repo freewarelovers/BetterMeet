@@ -15,10 +15,19 @@ class EventType(DjangoObjectType):
 class Query(graphene.ObjectType):
     all_events = graphene.List(EventType)
     get_community_events_by_slug = graphene.List(EventType, slug=graphene.String())
+    get_current_event = graphene.Field(EventType, id=graphene.ID())
+
     def resolve_all_events(root, info):
         return Event.objects.all()
+
     def resolve_get_community_events_by_slug(root, info , slug):
         return Event.objects.filter(event_creator__community__slug=slug)
+    
+    @login_required
+    def resolve_get_current_event(root, info, id):
+        return Event.objects.get(pk=id)
+    
+
 
 
 class EventsMutation(DjangoModelFormMutation):

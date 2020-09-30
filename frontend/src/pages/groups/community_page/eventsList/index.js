@@ -26,7 +26,7 @@ export default function CommunityEventsList(props){
                     {  
                     (element)=>(     
                         <Box  key={element.id}  onClick={event=>
-                            (history.push(`/communities/${props.community_slug}/events/${element.id}`))
+                            (history.push(`/communities/${props.community_slug}/event/${element.id}`))
                         } 
                         fill>
                                 <Heading level="4" >{element.name}</Heading>

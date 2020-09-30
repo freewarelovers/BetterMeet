@@ -37,3 +37,17 @@ export const GET_COMMUNITY_EVENTS_BY_SLUG = gql`query getCommunityEventsBySlug($
     startAt,
   }
 }`
+
+export const GET_CURRENT_EVENT = gql`
+  query getCurrentEvent($id:ID!){
+    getCurrentEvent(id:$id){
+      id,
+      name,
+      slug,
+      eventCreator{owner{firstName,lastName}, community{name,slug}},
+      description,
+      position,
+      startAt
+    }
+  }
+`
