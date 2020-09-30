@@ -28,14 +28,14 @@ function  Dashboard (){
      setOpen(false);
    };
 
-   if(currentuser_data) console.log("currentuser ", currentuser_data)
+  
 
    
     
     if(data) console.log(data)
-    
-    if (loading || currentuser_loading || !currentuser_data ) return <div>Loading</div>
-    
+    console.log(currentuser_loading)
+    if (loading===true || currentuser_loading===true  ) return <div>Loading</div>
+    if( !currentuser_data ) return <div>you are not logged in</div>
     if(error) console.log(error)
     
     return(
