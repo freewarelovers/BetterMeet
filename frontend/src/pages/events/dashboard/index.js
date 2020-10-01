@@ -33,9 +33,9 @@ function  Dashboard (){
    
     
     if(data) console.log(data)
-    console.log(currentuser_loading)
-    if (loading===true || currentuser_loading===true  ) return <div>Loading</div>
-    if( !currentuser_data ) return <div>you are not logged in</div>
+
+    if (loading || currentuser_loading  ) return <div>Loading</div>
+
     if(error) console.log(error)
     
     return(
@@ -44,7 +44,7 @@ function  Dashboard (){
             <Header background="dark-1" pad="small">
                 <Nav direction="row">
                     {items.map(item => (
-                    <Anchor href={item.href} label={item.label} key={item.label} />
+                        <Anchor href={item.href} label={item.label} key={item.label} />
                     ))}
                     {currentuser_data ?
                     <DropButton

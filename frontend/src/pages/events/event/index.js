@@ -1,8 +1,8 @@
 import React from "react"
-import {useHistory, useRouteMatch} from "react-router-dom"
+import {useRouteMatch} from "react-router-dom"
 import {useQuery} from 'react-apollo'
 import {GET_CURRENT_EVENT} from "../../../api/events/index"
-import { Heading , Text, Anchor,  Header, Nav, Main, Box, Paragraph } from 'grommet';
+import { Heading , Text, Anchor,  Header, Nav, Main, Box, Paragraph} from 'grommet';
 import moment from "moment"
 
 const items = [
@@ -12,12 +12,12 @@ const items = [
 
 export default function EventPage(){
     const location = useRouteMatch();
-    const history = useHistory()
    
     const {data, error, loading} = useQuery(GET_CURRENT_EVENT,{
         variables : {id:location.params.id}
     })
 
+    if(error) return <div> Error</div>
     if(loading)  return <div>Loading ... </div>
     console.log(data)
     return(
@@ -63,12 +63,13 @@ export default function EventPage(){
                  
                 </Box>
 
-                <Box width="medium" margin="large" pad="medium">                             
-                        <Paragraph textAlign="center">
+                <Box width="medium" margin="large" pad="medium"> 
+                  <Anchor label="Go to community page" href={`/communities/${data.getCurrentEvent.eventCreator.community.slug}`} />                            
+                        <Paragraph  textAlign="center">
                             {data.getCurrentEvent.description}
                         </Paragraph>
                 </Box>
-            </Main >
+            </Main>
             
         </>
     )
