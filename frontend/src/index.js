@@ -14,6 +14,7 @@ import {apolloClient} from "./apolloClient"
 import Home from "./pages/home/index"
 import Signup from "./pages/registration/signup/index"
 import Signin from "./pages/registration/signin/index"
+import Logout from "./pages/registration/logout/index"
 import Dashboard from "./pages/events/dashboard/index"
 import CreateCommunity from "./pages/groups/create_community/index"
 import CommunityPage from "./pages/groups/community_page/index"
@@ -33,6 +34,8 @@ ReactDOM.render(
       <Route exact path="/signup" component={Signup} />
    
       <Route exact path="/signin" component={Signin} />
+
+      <Route exact path="/logout" component={Logout} />
 
       <Route  path="/dashboard/:name" component={Dashboard} />
       
