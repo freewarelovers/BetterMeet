@@ -17,3 +17,12 @@ export const CHECK_AUTH_TOKEN = gql`mutation verifyToken($token:String!){
           payload
       }
 }`
+
+export const REFRESH_TOKEN = gql`mutation refreshToken($token:String!) {
+    refreshToken(refreshToken : $token){
+        token,
+        payload,
+        success,
+        errors,
+    }
+}`
