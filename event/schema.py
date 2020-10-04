@@ -35,7 +35,10 @@ class EventsMutation(DjangoModelFormMutation):
 
     @login_required
     def resolve_event(root, info, **kwargs):
-        return root.event
+        if(info.context.user.pk ==root.event.event_creator.owner.pk):
+            return root.event
+        else:
+            raise Exception("You dont have permission to performe this action")
 
     class Meta:
         form_class = EventCreationForm

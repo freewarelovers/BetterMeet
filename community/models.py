@@ -31,7 +31,7 @@ class Community(models.Model):
         return str(self.name)
 
 class CommunityOwner(models.Model):
-    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="community_owner")
     community = models.ForeignKey(Community, on_delete=models.CASCADE )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
