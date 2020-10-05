@@ -38,6 +38,7 @@ class EventsMutation(DjangoModelFormMutation):
         if(info.context.user.pk ==root.event.event_creator.owner.pk):
             return root.event
         else:
+            Event.objects.get(pk = root.event.pk).delete()
             raise Exception("You dont have permission to performe this action")
 
     class Meta:
