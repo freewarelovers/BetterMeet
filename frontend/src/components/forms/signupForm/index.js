@@ -1,6 +1,6 @@
 import React from "react"
 import {useMutation } from 'react-apollo';
-
+import jwt_decode from "jwt-decode";
 import {SignupSchema} from "./schema/index"
 import { useFormik} from 'formik'
 import {
@@ -10,6 +10,7 @@ import {
   } from 'grommet';
 
 import {CREATE_USER} from "../../../api/signup/index"
+
 
 import {Redirect} from "react-router-dom"
 import { RegistrationErrorHandler} from '../../../utils/handlers/errors/index'
@@ -32,7 +33,7 @@ function SignupForm (props){
         validationSchema: SignupSchema,
         onSubmit :  async values => { await new Promise( 
 
-        console.log(createUser(
+                createUser(
                     { variables: {
                         first_name: values.firstName,
                         last_name: values.lastName,
@@ -44,9 +45,11 @@ function SignupForm (props){
                     if(data.data.register.success){
                         localStorage.setItem("jwt", data.data.register.token)
                         localStorage.setItem("jwt_refresh", data.data.register.refreshToken)
+                        localStorage.setItem("user_email", jwt_decode(data.data.register.token).email)
+                      
                     }
                     
-                }))
+                })
                 )
             }})
 
@@ -55,6 +58,7 @@ function SignupForm (props){
 
         if(data){
             if(data.register.success){
+               
                 return <Redirect 
                 to={{pathname:"/dashboard/me" ,
                 state:{ message:'User created successfuly'}}}/>

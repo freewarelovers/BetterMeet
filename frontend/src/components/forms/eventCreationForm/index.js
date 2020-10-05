@@ -23,7 +23,8 @@ import "react-datepicker/dist/react-datepicker.css"
 export default function EventCreationForm(props){
     const [user_id]=  useState(props.current_user)
     const [createEvent, { data,loading, error}  ] = useMutation(CREATE_EVENT)
-    const [date , setDate] = useState( new Date() )
+    const [endAtDate , setEndAtDate] = useState( new Date() )
+    const [startAtDate , setStartAtDate] = useState( new Date() )
     const history = useHistory();
     const match  = useRouteMatch()
     
@@ -32,7 +33,8 @@ export default function EventCreationForm(props){
         name: "",
         description: "",
         position: "",
-        startAt: date,
+        startAt: startAtDate,
+        endAt: endAtDate,
         },
     validationSchema : CreateEventSchema,
     onSubmit : async values =>{
@@ -43,7 +45,8 @@ export default function EventCreationForm(props){
                     eventCreator : user_id,
                     description : values.description,
                     position : values.position,
-                    startAt :moment(values.startAt).format("YYYY-MM-DD") 
+                    startAt :moment(values.startAt).format("YYYY-MM-DD"),
+                    endAt :moment(values.endAt).format("YYYY-MM-DD")  
                 }}
             ).then(data=>{
                 if(data.data.addEvent.errors.length < 1){
@@ -101,21 +104,37 @@ export default function EventCreationForm(props){
                     {formik.errors.position && formik.touched.position ?
                     (<div>{formik.errors.position}</div>) : null}
 
-                    <label htmlFor="startAt"></label>
+                    <label htmlFor="startAt">Start at</label>
                     <DatePicker
                         id="startAt"
                         name="startAt"
-                        selected=  {date}
+                        selected=  {startAtDate}
 
                         onChange = {date=>{
                             let newdate = moment(date).format("YYYY-MM-DD")
-                            setDate(date)
+                            setStartAtDate(date)
                             formik.setFieldValue('startAt',newdate)
                         }}
                     />    
                     <br></br>
                     {formik.errors.startAt && formik.touched.startAt ?
                     (<div>{formik.errors.startAt}</div>) : null}
+                    
+                    <label htmlFor="endAt">End at</label>
+                    <DatePicker
+                        id="endAt"
+                        name="endAt"
+                        selected=  {endAtDate}
+
+                        onChange = {date=>{
+                            let newdate = moment(date).format("YYYY-MM-DD")
+                            setEndAtDate(date)
+                            formik.setFieldValue('endAt',newdate)
+                        }}
+                    />    
+                    <br></br>
+                    {formik.errors.endAt && formik.touched.endAt ?
+                    (<div>{formik.errors.endAt}</div>) : null}
 
                     <Button 
                         primary  

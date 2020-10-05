@@ -35,8 +35,9 @@ function  Dashboard (){
     if(data) console.log(data)
 
     if (loading || currentuser_loading  ) return <div>Loading</div>
-
+   
     if(error) console.log(error)
+   
     
     return(
         <>

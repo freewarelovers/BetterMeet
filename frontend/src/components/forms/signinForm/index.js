@@ -1,6 +1,6 @@
 import React from "react"
 import {useMutation } from 'react-apollo';
-
+import jwt_decode from "jwt-decode";
 import {
     Button,
     Form,
@@ -42,7 +42,7 @@ function SigninForm (){
                     if(data.data.tokenAuth.success){
                         localStorage.setItem("jwt", data.data.tokenAuth.token)
                         localStorage.setItem("jwt_refresh", data.data.tokenAuth.refreshToken)
-                        localStorage.setItem('user_id', data.data.tokenAuth.user.pk)
+                        localStorage.setItem("user_email", jwt_decode(data.data.tokenAuth.token).email)
                     }
                     
                 })

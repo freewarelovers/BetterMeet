@@ -5,6 +5,7 @@ import { setContext } from "apollo-link-context";
 import { fromPromise, ApolloLink } from "apollo-link";
 import { REFRESH_TOKEN } from "./api/login/index";
 import { onError } from "apollo-link-error";
+
 ///import { onError } from "apollo-link-error";
 //import { ApolloLink, Observable } from 'apollo-link';
 const httpLink = createHttpLink({

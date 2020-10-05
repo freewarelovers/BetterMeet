@@ -2,7 +2,7 @@ import React from "react";
 //import queryString from "query-string"
 import { useRouteMatch } from "react-router-dom";
 import EventCreationForm from "../../../components/forms/eventCreationForm/index";
-import { GET_CURRENT_COMMUNITY_BY_SLUG, GET_CURRENT_COMMUNITY_OWNER } from "../../../api/communitys/index";
+import { GET_CURRENT_COMMUNITY_BY_SLUG } from "../../../api/communitys/index";
 
 import { useQuery } from "react-apollo";
 import {
@@ -32,8 +32,8 @@ export default function CommunityPage() {
     variables: { slug: location.params.slug },
   });
 
-  const {data:owner_data} = useQuery(GET_CURRENT_COMMUNITY_OWNER)
-  console.log("community owner",  owner_data)
+  
+ 
 
   if (error) console.log(error);
 

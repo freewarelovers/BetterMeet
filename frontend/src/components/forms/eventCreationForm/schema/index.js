@@ -17,5 +17,8 @@ export const CreateEventSchema = Yup.object().shape({
     .required('Required'),
 
     startAt : Yup.date()
+    .required('Required'),
+    
+    endAt : Yup.date()
     .required('Required')
 })
