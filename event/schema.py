@@ -9,7 +9,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 class EventType(DjangoObjectType):
     class Meta:
         model = Event
-        fields = ['id','name', 'slug', 'event_creator', 'description', 'position', 'start_at']
+        fields = ['id','name', 'slug', 'event_creator', 'description', 'position', 'start_at', 'end_at']
 
 
 class Query(graphene.ObjectType):

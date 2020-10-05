@@ -14,7 +14,7 @@ from pathlib import Path
 
 import os
 
-
+from datetime import  timedelta 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -104,6 +104,8 @@ GRAPHENE = {
 GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": True,
     # optional
+    'JWT_EXPIRATION_DELTA': timedelta(days=30),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=100),
     "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
     "JWT_ALLOW_ANY_CLASSES": [
         "graphql_auth.mutations.Register",

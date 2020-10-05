@@ -30,6 +30,7 @@ const errorLink = onError(
     console("a graph ql error")
     if (graphQLErrors) {
       for (let err of graphQLErrors) {
+        // eslint-disable-next-line
         switch (err.extensions.code) {
           case "UNAUTHENTICATED":
             return fromPromise(
