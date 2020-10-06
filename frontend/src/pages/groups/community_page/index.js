@@ -32,13 +32,12 @@ export default function CommunityPage() {
     variables: { slug: location.params.slug },
   });
 
-  
- 
-
   if (error) console.log(error);
 
   if (loading) return <div>Loading</div>;
-
+  console.log(data.getCommunitysBySlug.owner.email )
+  const is_owner =
+    data.getCommunitysBySlug.owner.email === localStorage.getItem("user_email");
   return (
     <>
       <Header background="dark-1" pad="small">
@@ -81,14 +80,15 @@ export default function CommunityPage() {
               <Tab title="Members">
                 <Box pad="medium">Two</Box>
               </Tab>
-
-              <Tab title="add Events">
-                <Box pad="medium">
-                  <EventCreationForm
-                    current_user={data.getCommunitysBySlug.id}
-                  />
-                </Box>
-              </Tab>
+              {is_owner ? (
+                <Tab title="add Events">
+                  <Box pad="medium">
+                    <EventCreationForm
+                      current_user={data.getCommunitysBySlug.id}
+                    />
+                  </Box>
+                </Tab>
+              ) : undefined}
             </Tabs>
           </Box>
         </Box>

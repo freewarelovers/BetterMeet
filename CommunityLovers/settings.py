@@ -103,7 +103,6 @@ GRAPHENE = {
 
 GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": True,
-    # optional
     'JWT_EXPIRATION_DELTA': timedelta(days=30),
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=100),
     "JWT_LONG_RUNNING_REFRESH_TOKEN": True,

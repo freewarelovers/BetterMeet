@@ -3,7 +3,7 @@ import React  from "react"
 import {useQuery} from  "react-apollo"
 import {Drop} from "../../../components/lists/drop/index"
 import { ALL_EVENTS } from "../../../api/events/index"
-import { GET_CURRENT_USER_COMMUNITYS } from "../../../api/communitys/index"
+import {GET_CURRENT_USER_COMMUNITYS } from "../../../api/communitys/index"
 
 import { Heading, Text, List , Anchor,  Header, Nav, Main, Box, DropButton } from 'grommet';
 
@@ -18,6 +18,7 @@ function  Dashboard (){
    
     const { loading, error, data } = useQuery(ALL_EVENTS);
    const {data:currentuser_data, loading:currentuser_loading} =useQuery(GET_CURRENT_USER_COMMUNITYS)
+   console.log(useQuery(GET_CURRENT_USER_COMMUNITYS))
    const [open, setOpen] = React.useState();
    let history = useHistory()
 
@@ -28,11 +29,6 @@ function  Dashboard (){
      setOpen(false);
    };
 
-  
-
-   
-    
-    if(data) console.log(data)
 
     if (loading || currentuser_loading  ) return <div>Loading</div>
    
