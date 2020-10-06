@@ -35,7 +35,7 @@ class EventJoinRequest(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if member.pk == event.event_creator.owner.pk:
+        if self.member.pk == self.event.event_creator.owner.pk:
             raise Exception("Owner can not join his own events")
         super(EventJoinRequest, self).save(*args, **kwargs)
 

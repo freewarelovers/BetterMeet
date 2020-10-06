@@ -2,9 +2,9 @@ import React from "react";
 //import queryString from "query-string"
 import { useRouteMatch } from "react-router-dom";
 import EventCreationForm from "../../../components/forms/eventCreationForm/index";
-import { GET_CURRENT_COMMUNITY_BY_SLUG } from "../../../api/communitys/index";
+import { GET_CURRENT_COMMUNITY_BY_SLUG, ADD_COMMUNITY_JOIN_REQUEST } from "../../../api/communitys/index";
 
-import { useQuery } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import {
   Heading,
   Text,
@@ -15,6 +15,7 @@ import {
   Box,
   Tabs,
   Tab,
+  Button,
 } from "grommet";
 
 import CommunityEventsList from "./eventsList/index";
@@ -27,15 +28,22 @@ const items = [
 
 export default function CommunityPage() {
   const location = useRouteMatch();
+  
+  let  addCommunityJoinRequest = useMutation(ADD_COMMUNITY_JOIN_REQUEST)
 
   const { data, loading, error } = useQuery(GET_CURRENT_COMMUNITY_BY_SLUG, {
     variables: { slug: location.params.slug },
   });
 
+  let handleJoinCommunity = (event)=>{
+    console.log(event)
+    console.log(addCommunityJoinRequest)
+  }
+
   if (error) console.log(error);
 
   if (loading) return <div>Loading</div>;
-  console.log(data.getCommunitysBySlug.owner.email )
+
   const is_owner =
     data.getCommunitysBySlug.owner.email === localStorage.getItem("user_email");
   return (
@@ -71,6 +79,14 @@ export default function CommunityPage() {
                 "MMM Do YYYY"
               )}{" "}
             </Text>
+            {is_owner ?
+            <Button
+              primary
+              color="dark-1"
+              label="join this community"
+              onClick={handleJoinCommunity}
+              type="button"
+            ></Button>: "" }
           </Header>
           <Box width="medium">
             <Tabs>

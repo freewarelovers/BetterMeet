@@ -42,3 +42,19 @@ class CommunityOwner(models.Model):
 
     def __str__(self):
         return str(self.owner.email)
+
+
+class CommunityJoinRequest(models.Model):
+    member =  models.ForeignKey(CustomUser, verbose_name=_("user who sent request"),on_delete=models.CASCADE)
+    community = models.ForeignKey(Community, verbose_name=_("request to joing this event"), on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        owner = CommunityOwner.objects.get(community__pk=self.community.pk)
+        if self.member.pk == owner.owner.pk:
+            raise Exception("Owner can not join his own community")
+        super(CommunityJoinRequest, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.member.email)

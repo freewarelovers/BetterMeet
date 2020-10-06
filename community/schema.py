@@ -3,8 +3,8 @@ import graphene
 from graphql_jwt.decorators import login_required
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
-from community.models import Community,CommunityOwner
-from .froms import CommunityCreationForm, CommunityOwnerCreationForm
+from community.models import Community, CommunityOwner, CommunityJoinRequest 
+from .froms import CommunityCreationForm, CommunityOwnerCreationForm, CommunityJoinRequestCreationForm
 
 
 class CommunityType(DjangoObjectType):
@@ -18,6 +18,10 @@ class CommunityOwnerType(DjangoObjectType):
         model = CommunityOwner
         fields = ['id','owner', 'community', 'created_at']
 
+class CommunityJoinRequestCreationType(DjangoObjectType):
+    class  Meta :
+        model = CommunityJoinRequest
+        fields = ['member', 'community']
 
 ## mutations
 class CommunitysMutation(DjangoModelFormMutation):
@@ -26,7 +30,6 @@ class CommunitysMutation(DjangoModelFormMutation):
     @login_required
     def resolve_community(root, info, **kwargs):
         return root.community
-        
 
     class Meta:
         form_class = CommunityCreationForm
@@ -41,11 +44,24 @@ class CommunitysOwnersMutation(DjangoModelFormMutation):
     class Meta:
         form_class = CommunityOwnerCreationForm
 
+class CommunityJoinRequestCreationMutation(DjangoModelFormMutation):
+    community_join_request = graphene.Field(CommunityJoinRequestCreationType)
 
+    @login_required
+    def resolve_community_join_request(root, info, **kwargs):
+        if root.community_join_request.member.pk == info.context.user.pk :
+            return root.community_join_request
+        else : 
+            CommunityJoinRequest.objects.get(pk=root.community_join_request.pk).delete()
+            raise Exception("Wrong credentials")
+    class Meta:
+        form_class = CommunityJoinRequestCreationForm
+        
 ### main mutation
 class Mutation(graphene.ObjectType):
     add_community = CommunitysMutation.Field()
     add_owner_to_community = CommunitysOwnersMutation.Field()
+    add_community_join_request = CommunityJoinRequestCreationMutation.Field()
     
 
   
