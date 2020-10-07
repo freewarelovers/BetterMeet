@@ -32,7 +32,6 @@ function SigninForm (){
         },
         validationSchema : SigninSchema,
         onSubmit :  async values => { await new Promise( 
-            console.log(values),
             loginUser(
                     { variables: {
                         email : values.email,

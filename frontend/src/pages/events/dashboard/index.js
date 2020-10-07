@@ -29,7 +29,7 @@ function Dashboard() {
   const { data: currentuser_data, loading: currentuser_loading } = useQuery(
     GET_CURRENT_USER_COMMUNITYS
   );
-  console.log(useQuery(GET_CURRENT_USER_COMMUNITYS));
+
   const [open, setOpen] = React.useState();
   let history = useHistory();
 

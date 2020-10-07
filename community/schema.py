@@ -3,7 +3,8 @@ import graphene
 from graphql_jwt.decorators import login_required
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
-from community.models import Community, CommunityOwner, CommunityJoinRequest 
+from base.models import CustomUser
+from community.models import Community, CommunityOwner, CommunityJoinRequest  
 from .froms import CommunityCreationForm, CommunityOwnerCreationForm, CommunityJoinRequestCreationForm
 
 
@@ -21,7 +22,7 @@ class CommunityOwnerType(DjangoObjectType):
 class CommunityJoinRequestCreationType(DjangoObjectType):
     class  Meta :
         model = CommunityJoinRequest
-        fields = ['member', 'community']
+        fields = ['community', 'member']
 
 ## mutations
 class CommunitysMutation(DjangoModelFormMutation):
@@ -44,19 +45,18 @@ class CommunitysOwnersMutation(DjangoModelFormMutation):
     class Meta:
         form_class = CommunityOwnerCreationForm
 
-class CommunityJoinRequestCreationMutation(DjangoModelFormMutation):
-    community_join_request = graphene.Field(CommunityJoinRequestCreationType)
+class CommunityJoinRequestCreationMutation(graphene.Mutation):
+    class Arguments: 
+        community = graphene.ID()
+    
+    success  = graphene.Boolean()
+    community_join_req= graphene.Field(CommunityJoinRequestCreationType)
 
     @login_required
-    def resolve_community_join_request(root, info, **kwargs):
-        if root.community_join_request.member.pk == info.context.user.pk :
-            return root.community_join_request
-        else : 
-            CommunityJoinRequest.objects.get(pk=root.community_join_request.pk).delete()
-            raise Exception("Wrong credentials")
-    class Meta:
-        form_class = CommunityJoinRequestCreationForm
-        
+    def mutate(root, info, community):
+        community_join_req = CommunityJoinRequest.objects.create(community=Community.objects.get(id=community), member=info.context.user)
+        success = True
+        return CommunityJoinRequestCreationMutation(community=community_join_req, success=success)
 ### main mutation
 class Mutation(graphene.ObjectType):
     add_community = CommunitysMutation.Field()

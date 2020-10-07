@@ -31,7 +31,7 @@ export const CREATE_COMMUNITY_OWNER = gql`
 `;
 
 export const GET_CURRENT_COMMUNITY_BY_SLUG = gql`
-  query getCommunitysBySlug($slug: String) {
+  query getCommunitysBySlug($slug: String!) {
     getCommunitysBySlug(slug: $slug) {
       id
       owner {
@@ -43,6 +43,7 @@ export const GET_CURRENT_COMMUNITY_BY_SLUG = gql`
         lastName
       }
       community {
+        id
         name
         slug
         createdAt
@@ -74,13 +75,13 @@ export const GET_CURRENT_USER_COMMUNITYS = gql`
 `;
 
 export const ADD_COMMUNITY_JOIN_REQUEST = gql`
-  mutation addCommunityJoinRequest($member:ID!, $community:ID!) {
-    addCommunityJoinRequest(input: { member: $member, community: $community }) {
-      communityJoinRequest {
-        community {
+  mutation addCommunityJoinRequest($community: ID!) {
+    addCommunityJoinRequest(community: $community) {
+      communityJoinReq {
+        member {
           id
         }
-        member {
+        community {
           id
         }
       }

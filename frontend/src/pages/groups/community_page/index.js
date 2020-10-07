@@ -29,15 +29,23 @@ const items = [
 export default function CommunityPage() {
   const location = useRouteMatch();
   
-  let  addCommunityJoinRequest = useMutation(ADD_COMMUNITY_JOIN_REQUEST)
+  const [addJoinReq, {data:join_data, loading:join_loading}] = useMutation(ADD_COMMUNITY_JOIN_REQUEST)
 
   const { data, loading, error } = useQuery(GET_CURRENT_COMMUNITY_BY_SLUG, {
     variables: { slug: location.params.slug },
   });
 
-  let handleJoinCommunity = (event)=>{
-    console.log(event)
-    console.log(addCommunityJoinRequest)
+  let handleJoinCommunity = async (event)=>{
+    await 
+     console.log(addJoinReq(
+       {
+         variables: {
+           community : Number(data.getCommunitysBySlug.community.id)
+         }
+       }
+     )
+    )
+     
   }
 
   if (error) console.log(error);
@@ -46,6 +54,7 @@ export default function CommunityPage() {
 
   const is_owner =
     data.getCommunitysBySlug.owner.email === localStorage.getItem("user_email");
+   
   return (
     <>
       <Header background="dark-1" pad="small">
@@ -79,7 +88,7 @@ export default function CommunityPage() {
                 "MMM Do YYYY"
               )}{" "}
             </Text>
-            {is_owner ?
+            {!is_owner ?
             <Button
               primary
               color="dark-1"

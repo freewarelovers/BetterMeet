@@ -20,4 +20,4 @@ class CommunityOwnerCreationForm(forms.ModelForm):
 class CommunityJoinRequestCreationForm(forms.ModelForm):
     class Meta :
         model = CommunityJoinRequest
-        fields = ['member', 'community']
+        fields = ['community']
