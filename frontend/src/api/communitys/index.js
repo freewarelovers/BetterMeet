@@ -88,3 +88,18 @@ export const ADD_COMMUNITY_JOIN_REQUEST = gql`
     }
   }
 `;
+
+export const GET_CUMMUNITY_JOIN_REQUEST = gql`
+  query getCommunityJoinRequests($slug: String!) {
+    getCommunityJoinRequests(slug: $slug) {
+      member{id}
+    }
+  }
+`;
+
+export const GET_COMMUNITY_MEMBERS= gql`
+query getCommunityMembers($slug:String!){
+  getCommunityMembers(slug:$slug){
+   member{id,firstName,lastName,city,profilePic,country}
+ }
+ }`;

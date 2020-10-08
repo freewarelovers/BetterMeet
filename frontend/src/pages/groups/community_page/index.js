@@ -2,7 +2,11 @@ import React from "react";
 //import queryString from "query-string"
 import { useRouteMatch } from "react-router-dom";
 import EventCreationForm from "../../../components/forms/eventCreationForm/index";
-import { GET_CURRENT_COMMUNITY_BY_SLUG, ADD_COMMUNITY_JOIN_REQUEST } from "../../../api/communitys/index";
+import {JoinCommunityRequestList, CommunityMemebersList} from "./ReqList/index"
+import {
+  GET_CURRENT_COMMUNITY_BY_SLUG,
+  ADD_COMMUNITY_JOIN_REQUEST,
+} from "../../../api/communitys/index";
 
 import { useQuery, useMutation } from "react-apollo";
 import {
@@ -28,25 +32,21 @@ const items = [
 
 export default function CommunityPage() {
   const location = useRouteMatch();
-  
-  const [addJoinReq, {data:join_data, loading:join_loading}] = useMutation(ADD_COMMUNITY_JOIN_REQUEST)
+
+  const [addJoinReq] = useMutation(ADD_COMMUNITY_JOIN_REQUEST);
 
   const { data, loading, error } = useQuery(GET_CURRENT_COMMUNITY_BY_SLUG, {
     variables: { slug: location.params.slug },
   });
 
-  let handleJoinCommunity = async (event)=>{
-    await 
-     console.log(addJoinReq(
-       {
-         variables: {
-           community : Number(data.getCommunitysBySlug.community.id)
-         }
-       }
-     )
-    )
-     
-  }
+
+  let handleJoinCommunity = async (event) => {
+    await addJoinReq({
+      variables: {
+        community: Number(data.getCommunitysBySlug.community.id),
+      },
+    });
+  };
 
   if (error) console.log(error);
 
@@ -54,7 +54,7 @@ export default function CommunityPage() {
 
   const is_owner =
     data.getCommunitysBySlug.owner.email === localStorage.getItem("user_email");
-   
+
   return (
     <>
       <Header background="dark-1" pad="small">
@@ -88,23 +88,31 @@ export default function CommunityPage() {
                 "MMM Do YYYY"
               )}{" "}
             </Text>
-            {!is_owner ?
-            <Button
-              primary
-              color="dark-1"
-              label="join this community"
-              onClick={handleJoinCommunity}
-              type="button"
-            ></Button>: "" }
+            {!is_owner ? (
+              <Button
+                primary
+                color="dark-1"
+                label="join this community"
+                onClick={handleJoinCommunity}
+                type="button"
+              ></Button>
+            ) : (
+              ""
+            )}
           </Header>
-          <Box width="medium">
+          <Box width="large">
             <Tabs>
               <Tab title="Events">
                 <CommunityEventsList community_slug={location.params.slug} />
               </Tab>
               <Tab title="Members">
-                <Box pad="medium">Two</Box>
+               <CommunityMemebersList  slug={location.params.slug }/>
               </Tab>
+              {is_owner ? (
+              <Tab title="Join Request">
+                 <JoinCommunityRequestList slug={location.params.slug } />
+              </Tab>
+              )
               {is_owner ? (
                 <Tab title="add Events">
                   <Box pad="medium">
