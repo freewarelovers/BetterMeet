@@ -1,6 +1,6 @@
 import React from "react"
 
-export class  ErrorHandler extends React.Component{
+export class  RegistrationErrorHandler extends React.Component{
     render(){
        const data =  this.props.data
     

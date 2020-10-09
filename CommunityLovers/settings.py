@@ -14,7 +14,7 @@ from pathlib import Path
 
 import os
 
-
+from datetime import  timedelta 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -44,9 +44,8 @@ INSTALLED_APPS = [
     'base',
     'event',
     'community',
-    # refresh tokens are optional
-    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     "graphql_auth",
+     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     'django_filters',
 ]
 
@@ -63,9 +62,10 @@ MIDDLEWARE = [
 
 # Add CORS_ORIGIN_WHITELIST to allow these domains be authorized to make cross-site HTTP requests
 CORS_ORIGIN_WHITELIST = [
+    #React App domain
     "http://localhost:3000",
     "http://127.0.0.1:3000"
-    # your React App domain
+    
 ]
 
 ROOT_URLCONF = 'CommunityLovers.urls'
@@ -103,14 +103,29 @@ GRAPHENE = {
 
 GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": True,
-    # optional
+    'JWT_EXPIRATION_DELTA': timedelta(days=30),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=100),
     "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
     "JWT_ALLOW_ANY_CLASSES": [
         "graphql_auth.mutations.Register",
         "graphql_auth.mutations.VerifyAccount",
         "graphql_auth.mutations.ObtainJSONWebToken",
         "graphql_auth.mutations.VerifyToken",
-    ],
+        "graphql_auth.mutations.RefreshToken",
+        "graphql_auth.mutations.RevokeToken",
+    ]
+}
+GRAPHQL_AUTH = {
+    'LOGIN_ALLOWED_FIELDS': ['email'],
+
+     'REGISTER_MUTATION_FIELDS' : {
+        "email": "String",
+        "first_name" : "String",
+        "last_name":  "String",
+        "password1": "String",
+        "password2": "String",
+    }
+
 }
 
 WSGI_APPLICATION = 'CommunityLovers.wsgi.application'
