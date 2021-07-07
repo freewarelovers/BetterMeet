@@ -3,6 +3,7 @@ An open community platform
 
 # Frameworks & Technologies
 ~~python , django , graphql , react , redux~~
+
 next.js, react
 
 # Diagrams
