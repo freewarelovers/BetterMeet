@@ -1,4 +1,4 @@
-# Community Lovers
+# BetterMeet
 An open community platform
 
 # Frameworks & Technologies 
