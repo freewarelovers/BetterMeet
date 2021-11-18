@@ -4,7 +4,9 @@ An open community platform
 # Frameworks & Technologies
 ~~python , django , graphql , react , redux~~
 
-next.js, react
+--next.js, react--
+
+SvelteKit
 
 # Diagrams
 made with  : [Draw.io](https://draw.io/)
