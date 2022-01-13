@@ -1,5 +1,6 @@
 # BetterMeet
-An open community platform
+
+An open community platform.
 
 # Frameworks & Technologies
 ~~python , django , graphql , react , redux~~
